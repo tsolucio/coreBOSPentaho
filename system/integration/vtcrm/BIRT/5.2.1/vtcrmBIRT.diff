@@ -1,0 +1,61 @@
+Index: Smarty/templates/ReportContents.tpl
+===================================================================
+--- Smarty/templates/ReportContents.tpl	(revisión: 4081)
++++ Smarty/templates/ReportContents.tpl	(copia de trabajo)
+@@ -48,13 +48,21 @@
+ 				<tr class="lvtColData" onmouseover="this.className='lvtColDataHover'" onmouseout="this.className='lvtColData'" bgcolor="white">
+ 				<td>{$smarty.foreach.reportdtls.iteration}</td>
+ 				{if $MOD[$reportdetails.reportname] neq ''}
++				  {if $reportdetails.reporttype eq 'vtigerBI'}
++					<td><a href="{$reportdetails.biurl}" target="_blank">{$MOD[$reportdetails.reportname]}</a>
++				  {else}
+ 					<td><a href="index.php?module=Reports&action=SaveAndRun&record={$reportdetails.reportid}&folderid={$reportfolder.id}">{$MOD[$reportdetails.reportname]}</a>
++				  {/if}
+ 					{if $reportdetails.sharingtype eq 'Shared'}
+ 						<img src="{'Meetings.gif'|@vtiger_imageurl:$THEME}" align="absmiddle" border=0 height=12 width=12 /> 
+ 					{/if}
+ 					</td>
+ 				{else}
++				  {if $reportdetails.reporttype eq 'vtigerBI'}
++					<td><a href="{$reportdetails.biurl}" target="_blank">{$reportdetails.reportname}</a>
++				  {else}
+ 					<td><a href="index.php?module=Reports&action=SaveAndRun&record={$reportdetails.reportid}&folderid={$reportfolder.id}">{$reportdetails.reportname}</a>
++				  {/if}
+ 					{if $reportdetails.sharingtype eq 'Shared'}
+ 						<img src="{'Meetings.gif'|@vtiger_imageurl:$THEME}" align="absmiddle" border=0 height=12 width=12 /> 
+ 					{/if}
+Index: modules/Reports/Reports.php
+===================================================================
+--- modules/Reports/Reports.php	(revisión: 4081)
++++ modules/Reports/Reports.php	(copia de trabajo)
+@@ -455,6 +455,12 @@
+ 				$report_details ['description'] = $report["description"];
+ 				$report_details ['reportname'] = $report["reportname"];
+ 				$report_details ['sharingtype'] = $report["sharingtype"];
++				// vtigerBI reporting integration
++				// ALTER TABLE vtiger_report ADD biurl VARCHAR( 255 ) NULL ;
++				// increment vtiger_selectquery_seq
++				// insert into vtiger_report and vtiger_reportmodules
++				$report_details ['reporttype'] = $report["reporttype"];
++				$report_details ['biurl'] = $report["biurl"];
+ 				if($is_admin==true || in_array($report["owner"],$subordinate_users) || $report["owner"]==$current_user->id)
+ 					$report_details ['editable'] = 'true';
+ 				else
+Index: Smarty/templates/ReportsCustomize.tpl
+===================================================================
+--- Smarty/templates/ReportsCustomize.tpl	(revisión: 4081)
++++ Smarty/templates/ReportsCustomize.tpl	(copia de trabajo)
+@@ -64,7 +64,12 @@
+ 					<input name="selected_id{$reportfolder.id}" value="{$reportdetails.reportid}" onclick='toggleSelectAll(this.name,"selectall")' type="checkbox">
+ 				{/if}
+ 			</td>
+-			<td align="left"><a href="index.php?module=Reports&action=SaveAndRun&record={$reportdetails.reportid}&folderid={$reportfolder.id}">{$reportdetails.reportname}</a>
++			<td align="left">
++            {if $reportdetails.reporttype eq 'vtigerBI'}
++              <a href="{$reportdetails.biurl}" target="_blank">{if $MOD[$reportdetails.reportname] neq ''}{$MOD[$reportdetails.reportname]}{else}{$reportdetails.reportname}{/if}</a>
++            {else}
++			<a href="index.php?module=Reports&action=SaveAndRun&record={$reportdetails.reportid}&folderid={$reportfolder.id}">{$reportdetails.reportname}</a>
++            {/if}
+ 			{if $reportdetails.sharingtype eq 'Shared'}
+ 				<img src="{'Meetings.gif'|@vtiger_imageurl:$THEME}" align="absmiddle" border=0 height=12 width=12 /> 
+ 			{/if}

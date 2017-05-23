@@ -1,0 +1,774 @@
+<Schema name="biComercial" caption="%{SalesSchema}">
+  <Dimension name="AccountName" caption="%{accountName}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccounts}">
+      <Table name="account"/>
+      <Level name="AccountName" column="accountname" uniqueMembers="true" caption="%{accountName}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+        <Property name="AccountType" column="account_type" type="String" caption="%{accountType}"/>
+        <Property name="AccountIndustry" column="industry" type="String" caption="%{accountIndustry}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountType" caption="%{accountType}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountTypes}">
+      <Table name="account"/>
+      <Level name="AccountType" column="account_type" uniqueMembers="false" caption="%{accountType}"/>
+      <Level name="AccountName" column="accountname" uniqueMembers="true" caption="%{accountName}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountIndustry" caption="%{accountIndustry}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountIndustry}">
+      <Table name="account"/>
+      <Level name="AccountIndustry" column="industry" uniqueMembers="false" caption="%{accountIndustry}"/>
+      <Level name="AccountName" column="accountname" uniqueMembers="true" caption="%{accountName}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountCity" caption="%{accountCity}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountCity}">
+      <Table name="account"/>
+      <Level name="AccountCity" column="city" uniqueMembers="false" caption="%{accountCity}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountCountry" caption="%{accountCountry}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountCountry}">
+      <Table name="account"/>
+      <Level name="AccountCountry" column="country" uniqueMembers="false" caption="%{accountCountry}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountState" caption="%{accountState}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountState}">
+      <Table name="account"/>
+      <Level name="AccountState" column="state" uniqueMembers="false" caption="%{accountState}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="AccountZipCode" caption="%{accountZipCode}">
+    <Hierarchy hasAll="true" primaryKey="idaccount" allMemberCaption="%{AllAccountZipCode}">
+      <Table name="account"/>
+      <Level name="AccountZipCode" column="zipcode" uniqueMembers="false" caption="%{accountZipCode}">
+        <Property name="Phone" column="phone" type="String" caption="%{accountPhone}"/>
+        <Property name="Email" column="email1" type="String" caption="%{accountEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{accountWebsite}"/>
+        <Property name="Rating" column="rating" type="String" caption="%{accountRating}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactName" caption="%{contactName}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactNames}">
+      <Table name="contact"/>
+      <Level name="ContactName" column="fullname" uniqueMembers="true" caption="%{contactName}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+        <Property name="ContactType" column="contacttype" type="String" caption="%{contactType}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactType" caption="%{contactType}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactTypes}">
+      <Table name="contact"/>
+      <Level name="ContactType" column="contacttype" uniqueMembers="false" caption="%{contactType}"/>
+      <Level name="ContactName" column="fullname" uniqueMembers="true" caption="%{contactName}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactCity" caption="%{contactCity}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactCities}">
+      <Table name="contact"/>
+      <Level name="ContactCity" column="city" uniqueMembers="false" caption="%{contactCity}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactCountry" caption="%{contactCountry}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactCountries}">
+      <Table name="contact"/>
+      <Level name="ContactCountry" column="country" uniqueMembers="false" caption="%{contactCountry}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactState" caption="%{contactState}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactStates}">
+      <Table name="contact"/>
+      <Level name="ContactState" column="state" uniqueMembers="false" caption="%{contactState}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactZipCode" caption="%{contactZipCode}">
+    <Hierarchy hasAll="true" primaryKey="idcontact" allMemberCaption="%{AllContactZipCodes}">
+      <Table name="contact"/>
+      <Level name="ContactZipCode" column="zipcode" uniqueMembers="false" caption="%{contactZipCode}">
+        <Property name="Phone" column="phone" type="String" caption="%{contactPhone}"/>
+        <Property name="Mobile" column="mobile" type="String" caption="%{contactMobile}"/>
+        <Property name="Email" column="email" type="String" caption="%{contactEmail}"/>
+        <Property name="YahooId" column="yahooid" type="String" caption="%{contactYahooId}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactBirthDateYear" caption="%{contactbdYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{contactbdYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+	<Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{contactbdYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ContactBirthDate" caption="%{contactBirthdate}" type="TimeDimension">
+	  <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllContactBirthDates}" caption="%{contactBirthdate}">
+        <Table name="daytime" alias="dtfechacontactbd"/>
+	<Level name="TimeDate" column="fecha" table="dtfechacontactbd" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{contactBirthdate}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{TimeMonth}">
+        <Join leftAlias="dtcontactbd" rightAlias="tmcontactbd" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtcontactbd"/>
+          <Table name="daytimemonth" alias="tmcontactbd"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtcontactbd" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+	<Level name="Quarter" column="quarter" table="dtcontactbd" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmcontactbd" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtcontactbd" rightAlias="woycontactbd" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtcontactbd"/>
+          <Table name="daytimewoy" alias="woycontactbd"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woycontactbd" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtcontactbd" rightAlias="doycontactbd" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtcontactbd"/>
+          <Table name="daytimedoy" alias="doycontactbd"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doycontactbd" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtcontactbd" rightAlias="domcontactbd" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtcontactbd"/>
+          <Table name="daytimedom" alias="domcontactbd"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domcontactbd" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllContactBirthDates}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtcontactbd" rightAlias="dowcontactbd" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtcontactbd"/>
+          <Table name="daytimedow" alias="dowcontactbd"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowcontactbd" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="CampaignName" caption="%{campaignName}">
+    <Hierarchy hasAll="true" primaryKey="idcampaign" allMemberCaption="%{AllCampaignNames}">
+      <Table name="campaign"/>
+      <Level name="CampaignName" column="campaignname" uniqueMembers="true" caption="%{campaignName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="CampaignType" caption="%{campaignType}">
+    <Hierarchy hasAll="true" primaryKey="idcampaign" allMemberCaption="%{AllCampaignTypes}">
+      <Table name="campaign"/>
+      <Level name="CampaignType" column="campaigntype" uniqueMembers="false" caption="%{campaignType}"/>
+      <Level name="CampaignName" column="campaignname" uniqueMembers="true" caption="%{campaignName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="CampaignStatus" caption="%{campaignStatus}">
+    <Hierarchy hasAll="true" primaryKey="idcampaign" allMemberCaption="%{AllCampaignStatus}">
+      <Table name="campaign"/>
+      <Level name="CampaignStatus" column="campaignstatus" uniqueMembers="false" caption="%{campaignStatus}"/>
+      <Level name="CampaignName" column="campaignname" uniqueMembers="true" caption="%{campaignName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Owner" caption="%{Owner}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" primaryKeyTable="potential" allMemberCaption="%{AllOwners}">
+      <Join leftKey="ownerid" rightKey="iduser">
+        <Table name="potential"/>
+        <Table name="user"/>
+      </Join>
+      <Level name="User name" table="user" column="user_name" uniqueMembers="true" caption="%{userName}">
+        <Property name="First name" column="first_name" type="String" caption="%{userFirstName}"/>
+        <Property name="Last name" column="last_name" type="String" caption="%{userLastName}"/>
+        <Property name="EMail" column="email1" type="String" caption="%{userEmail}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Creator" caption="%{Creator}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" primaryKeyTable="potential" allMemberCaption="%{AllCreators}">
+      <Join leftKey="creatorid" rightKey="iduser">
+        <Table name="potential"/>
+        <Table name="user"/>
+      </Join>
+      <Level name="User name" table="user" column="user_name" uniqueMembers="true" caption="%{userName}">
+        <Property name="First name" column="first_name" type="String" caption="%{userFirstName}"/>
+        <Property name="Last name" column="last_name" type="String" caption="%{userLastName}"/>
+        <Property name="EMail" column="email1" type="String" caption="%{userEmail}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialName" caption="%{potentialName}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialNames}">
+      <Table name="potential"/>
+      <Level name="PotentialName" column="potentialname" uniqueMembers="true" caption="%{potentialName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialAmount" caption="%{potentialAmount}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialAmounts}">
+      <Level name="PotentialAmount" column="potential_amount" type="Numeric" uniqueMembers="false" caption="%{potentialAmount}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialType" caption="%{potentialType}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialTypes}">
+      <Table name="potential"/>
+      <Level name="PotentialType" column="potentialtype" uniqueMembers="false" caption="%{potentialType}"/>
+      <Level name="PotentialName" column="potentialname" uniqueMembers="true" caption="%{potentialName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialSalesStage" caption="%{potentialSalesStage}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialSalesStages}">
+      <Table name="potential"/>
+      <Level name="PotentialSalesStage" column="sales_stage" uniqueMembers="false" caption="%{potentialSalesStage}"/>
+      <Level name="PotentialName" column="potentialname" uniqueMembers="true" caption="%{potentialName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialWon" caption="%{potentialWon}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialWon}">
+      <Table name="potential"/>
+      <Level name="PotentialWon" column="won" type="Numeric" uniqueMembers="false" caption="%{potentialWon}"/>
+      <Level name="PotentialName" column="potentialname" type="String" uniqueMembers="true" caption="%{potentialName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="PotentialLeadSource" caption="%{potentialLeadSource}">
+    <Hierarchy hasAll="true" primaryKey="idpotential" allMemberCaption="%{AllPotentialLeadSource}">
+      <Table name="potential"/>
+      <Level name="PotentialLeadSource" column="leadsource" uniqueMembers="false" caption="%{potentialLeadSource}"/>
+      <Level name="PotentialName" column="potentialname" uniqueMembers="true" caption="%{potentialName}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductName" caption="%{productName}">
+    <Hierarchy hasAll="true" primaryKey="idproduct" allMemberCaption="%{AllProductName}">
+      <Table name="product"/>
+      <Level name="ProductName" column="productname" uniqueMembers="true" caption="%{productName}">
+        <Property name="ProductCode" column="productcode" type="String" caption="%{productCode}"/>
+        <Property name="ProductCategory" column="productcategory" uniqueMembers="false" type="String" caption="%{productCategory}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductCode" caption="%{productCode}">
+    <Hierarchy hasAll="true" primaryKey="idproduct" allMemberCaption="%{AllProductCodes}">
+      <Table name="product"/>
+      <Level name="ProductCode" column="productcode" uniqueMembers="true" caption="%{productCode}">
+        <Property name="ProductName" column="productname" type="String" caption="%{productName}"/>
+        <Property name="ProductCategory" column="productcategory" uniqueMembers="false" type="String" caption="%{productCategory}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductCategory" caption="%{productCategory}">
+    <Hierarchy hasAll="true" primaryKey="idproduct" allMemberCaption="%{AllProductCategories}">
+      <Table name="product"/>
+      <Level name="ProductCategory" column="productcategory" uniqueMembers="true" caption="%{productCategory}"/>
+      <Level name="ProductName" column="productname" uniqueMembers="true" caption="%{productName}">
+        <Property name="ProductCode" column="productcode" uniqueMembers="false" type="String" caption="%{productCode}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSaleStartYear" caption="%{productssYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{productssYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+	<Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{productssYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSaleStart" caption="%{productSaleStart}" type="TimeDimension">
+	  <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllProductSaleStart}" caption="%{productSaleStart}">
+        <Table name="daytime" alias="dtfechaproductss"/>
+	<Level name="TimeDate" column="fecha" table="dtfechaproductss" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{productSaleStart}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{TimeMonth}">
+        <Join leftAlias="dtproductss" rightAlias="tmproductss" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtproductss"/>
+          <Table name="daytimemonth" alias="tmproductss"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtproductss" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+	<Level name="Quarter" column="quarter" table="dtproductss" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmproductss" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtproductss" rightAlias="woyproductss" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtproductss"/>
+          <Table name="daytimewoy" alias="woyproductss"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woyproductss" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtproductss" rightAlias="doyproductss" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtproductss"/>
+          <Table name="daytimedoy" alias="doyproductss"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doyproductss" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtproductss" rightAlias="domproductss" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtproductss"/>
+          <Table name="daytimedom" alias="domproductss"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domproductss" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleStart}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtproductss" rightAlias="dowproductss" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtproductss"/>
+          <Table name="daytimedow" alias="dowproductss"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowproductss" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSaleEndYear" caption="%{productseYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{productseYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+	<Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{productseYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSaleEnd" caption="%{productSaleEnd}" type="TimeDimension">
+	  <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{productSaleEnd}">
+        <Table name="daytime" alias="dtfechaproductse"/>
+	<Level name="TimeDate" column="fecha" table="dtfechaproductse" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{productSaleEnd}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{TimeMonth}">
+        <Join leftAlias="dtproductse" rightAlias="tmproductse" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtproductse"/>
+          <Table name="daytimemonth" alias="tmproductse"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtproductse" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+	<Level name="Quarter" column="quarter" table="dtproductse" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmproductse" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtproductse" rightAlias="woyproductse" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtproductse"/>
+          <Table name="daytimewoy" alias="woyproductse"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woyproductse" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtproductse" rightAlias="doyproductse" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtproductse"/>
+          <Table name="daytimedoy" alias="doyproductse"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doyproductse" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtproductse" rightAlias="domproductse" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtproductse"/>
+          <Table name="daytimedom" alias="domproductse"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domproductse" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSaleEnd}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtproductse" rightAlias="dowproductse" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtproductse"/>
+          <Table name="daytimedow" alias="dowproductse"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowproductse" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSupportStartYear" caption="%{productpsYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{productpsYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+	<Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{productpsYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSupportStart" caption="%{productSupportStart}" type="TimeDimension">
+	  <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllProductSupportStart}" caption="%{productSupportStart}">
+        <Table name="daytime" alias="dtfechaproductps"/>
+	<Level name="TimeDate" column="fecha" table="dtfechaproductps" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{productSupportStart}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{TimeMonth}">
+        <Join leftAlias="dtproductps" rightAlias="tmproductps" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtproductps"/>
+          <Table name="daytimemonth" alias="tmproductps"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtproductps" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+	<Level name="Quarter" column="quarter" table="dtproductps" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmproductps" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtproductps" rightAlias="woyproductps" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtproductps"/>
+          <Table name="daytimewoy" alias="woyproductps"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woyproductps" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtproductps" rightAlias="doyproductps" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtproductps"/>
+          <Table name="daytimedoy" alias="doyproductps"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doyproductps" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtproductps" rightAlias="domproductps" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtproductps"/>
+          <Table name="daytimedom" alias="domproductps"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domproductps" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportStart}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtproductps" rightAlias="dowproductps" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtproductps"/>
+          <Table name="daytimedow" alias="dowproductps"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowproductps" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSupportEndYear" caption="%{productpeYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{productpeYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+	<Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{productpeYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ProductSupportEnd" caption="%{productSupportEnd}" type="TimeDimension">
+	  <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{productSupportEnd}">
+        <Table name="daytime" alias="dtfechaproductpe"/>
+	<Level name="TimeDate" column="fecha" table="dtfechaproductpe" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{productSupportEnd}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{TimeMonth}">
+        <Join leftAlias="dtproductpe" rightAlias="tmproductpe" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtproductpe"/>
+          <Table name="daytimemonth" alias="tmproductpe"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtproductpe" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+	<Level name="Quarter" column="quarter" table="dtproductpe" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmproductpe" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtproductpe" rightAlias="woyproductpe" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtproductpe"/>
+          <Table name="daytimewoy" alias="woyproductpe"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woyproductpe" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtproductpe" rightAlias="doyproductpe" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtproductpe"/>
+          <Table name="daytimedoy" alias="doyproductpe"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doyproductpe" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtproductpe" rightAlias="domproductpe" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtproductpe"/>
+          <Table name="daytimedom" alias="domproductpe"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domproductpe" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllProductSupportEnd}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtproductpe" rightAlias="dowproductpe" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtproductpe"/>
+          <Table name="daytimedow" alias="dowproductpe"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowproductpe" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorName" caption="%{vendorName}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorName}">
+      <Table name="vendor"/>
+      <Level name="VendorName" column="vendorname" uniqueMembers="true" caption="%{vendorName}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+        <Property name="VendorCategory" column="category" uniqueMembers="false" caption="%{vendorCategory}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorCategory" caption="%{vendorCategory}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorCategories}">
+      <Table name="vendor"/>
+      <Level name="VendorCategory" column="category" uniqueMembers="false" caption="%{vendorCategory}"/>
+      <Level name="VendorName" column="vendorname" uniqueMembers="true" caption="%{vendorName}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorCity" caption="%{vendorCity}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorCities}">
+      <Table name="vendor"/>
+      <Level name="VendorCity" column="city" uniqueMembers="false" caption="%{vendorCity}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorCountry" caption="%{vendorCountry}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorCountries}">
+      <Table name="vendor"/>
+      <Level name="VendorCountry" column="country" uniqueMembers="false" caption="%{vendorCountry}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorState" caption="%{vendorState}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorStates}">
+      <Table name="vendor"/>
+      <Level name="VendorState" column="state" uniqueMembers="false" caption="%{vendorState}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="VendorZipCode" caption="%{vendorZipCode}">
+    <Hierarchy hasAll="true" primaryKey="idvendor" allMemberCaption="%{AllVendorZipCodes}">
+      <Table name="vendor"/>
+      <Level name="VendorZipCode" column="postalcode" uniqueMembers="false" caption="%{vendorZipCode}">
+        <Property name="Phone" column="phone" type="String" caption="%{vendorPhone}"/>
+        <Property name="Email" column="email" type="String" caption="%{vendorEmail}"/>
+        <Property name="Website" column="website" type="String" caption="%{vendorWebsite}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="SalesOrderSubject" caption="%{soSubject}">
+    <Hierarchy hasAll="true" primaryKey="idsalesorder" allMemberCaption="%{AllSOs}">
+      <Table name="salesorder"/>
+      <Level name="Subject" column="subject" uniqueMembers="true" caption="%{soSubject}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="QuoteSubject" caption="%{quoteSubject}">
+    <Hierarchy hasAll="true" primaryKey="idquote" allMemberCaption="%{AllQuotes}">
+      <Table name="quote"/>
+      <Level name="Subject" column="subject" uniqueMembers="true" caption="%{quoteSubject}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="InvoiceSubject" caption="%{invoiceSubject}">
+    <Hierarchy hasAll="true" primaryKey="idinvoice" allMemberCaption="%{AllInvoices}">
+      <Table name="invoice"/>
+      <Level name="Subject" column="subject" uniqueMembers="true" caption="%{invoiceSubject}">
+        <Property name="InvoiceNo" column="invoice_no" type="Numeric" caption="%{invoiceNumber}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="InvoiceStatus" caption="%{invoiceStatus}">
+    <Hierarchy hasAll="true" primaryKey="crmid" allMemberCaption="%{AllInvoiceStatus}">
+      <Table name="invoice"/>
+      <Level name="InvoiceStatus" column="invoicestatus" uniqueMembers="true" caption="%{invoiceStatus}"/>
+      <Level name="InvoiceNo" column="invoice_no" uniqueMembers="true" caption="%{invoiceNumber}">
+        <Property name="Subject" column="subject" type="String" caption="%{invoiceSubject}"/>
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="CreatedYear" caption="%{CreatedYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{CreatedYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+        <Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{CreatedYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Created" caption="%{Created}" type="TimeDimension">
+    <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllCreated}" caption="%{Created}">
+      <Table name="daytime" alias="dtfechacreated"/>
+        <Level name="TimeDate" column="fecha" table="dtfechacreated" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{Created}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{TimeMonth}">
+        <Join leftAlias="dtcreated" rightAlias="tmcreated" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtcreated"/>
+          <Table name="daytimemonth" alias="tmcreated"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtcreated" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+        <Level name="Quarter" column="quarter" table="dtcreated" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmcreated" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtcreated" rightAlias="woycreated" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtcreated"/>
+          <Table name="daytimewoy" alias="woycreated"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woycreated" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtcreated" rightAlias="doycreated" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtcreated"/>
+          <Table name="daytimedoy" alias="doycreated"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doycreated" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtcreated" rightAlias="domcreated" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtcreated"/>
+          <Table name="daytimedom" alias="domcreated"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domcreated" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllCreated}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtcreated" rightAlias="dowcreated" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtcreated"/>
+          <Table name="daytimedow" alias="dowcreated"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowcreated" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="ClosedYear" caption="%{ClosedYear}" type="TimeDimension">
+    <Hierarchy name="Time Year" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{ClosedYear}">
+        <Join leftKey="year" rightKey="year">
+          <Table name="daytime"/>
+          <Table name="daytimeyear"/>
+        </Join>
+        <Level name="Year" column="year" table="daytimeyear" uniqueMembers="false" type="Numeric" levelType="TimeYears" caption="%{ClosedYear}"/>
+    </Hierarchy>
+  </Dimension>
+  <Dimension name="Closed" caption="%{Closed}" type="TimeDimension">
+    <Hierarchy name="Time Date" hasAll="true" primaryKey="iddaytime" allMemberCaption="%{AllClosed}" caption="%{Closed}">
+      <Table name="daytime" alias="dtfechaclosed"/>
+        <Level name="TimeDate" column="fecha" table="dtfechaclosed" uniqueMembers="true" type="Date" levelType="TimeDays" caption="%{Closed}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Month" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{TimeMonth}">
+        <Join leftAlias="dtclosed" rightAlias="tmclosed" leftKey="month" rightKey="month">
+          <Table name="daytime" alias="dtclosed"/>
+          <Table name="daytimemonth" alias="tmclosed"/>
+        </Join>
+        <Level name="Semester" column="semester" table="dtclosed" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeSemester}"/>
+        <Level name="Quarter" column="quarter" table="dtclosed" uniqueMembers="false" type="Numeric" levelType="TimeQuarters" caption="%{captionTimeQuarter}"/>
+        <Level name="Month" column="month" table="tmclosed" ordinalColumn="month" nameColumn="month_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeMonths" caption="%{captionTimeMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time Week" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{captionWeekOfYear}">
+        <Join leftAlias="dtclosed" rightAlias="woyclosed" leftKey="week_of_year" rightKey="week_of_year">
+          <Table name="daytime" alias="dtclosed"/>
+          <Table name="daytimewoy" alias="woyclosed"/>
+        </Join>
+        <Level name="Week of Year" column="week_of_year" table="woyclosed" uniqueMembers="false" type="Numeric" levelType="TimeWeeks" caption="%{captionWeekOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOY" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{captionDayOfYear}">
+        <Join leftAlias="dtclosed" rightAlias="doyclosed" leftKey="day_of_year" rightKey="day_of_year">
+          <Table name="daytime" alias="dtclosed"/>
+          <Table name="daytimedoy" alias="doyclosed"/>
+        </Join>
+        <Level name="Day of Year" column="day_of_year" table="doyclosed" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfYear}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOM" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{captionDayOfMonth}">
+        <Join leftAlias="dtclosed" rightAlias="domclosed" leftKey="day_of_month" rightKey="day_of_month">
+          <Table name="daytime" alias="dtclosed"/>
+          <Table name="daytimedom" alias="domclosed"/>
+        </Join>
+        <Level name="Day" column="day_of_month" table="domclosed" uniqueMembers="false" levelType="TimeDays" type="Numeric" caption="%{captionDayOfMonth}"/>
+    </Hierarchy>
+    <Hierarchy name="Time DOW" hasAll="true" primaryKey="iddaytime" primaryKeyTable="daytime" allMemberCaption="%{AllClosed}" caption="%{captionDayOfWeek}">
+        <Join leftAlias="dtclosed" rightAlias="dowclosed" leftKey="day_of_week" rightKey="day_of_week">
+          <Table name="daytime" alias="dtclosed"/>
+          <Table name="daytimedow" alias="dowclosed"/>
+        </Join>
+        <Level name="Day of Week" column="day_of_week" table="dowclosed" nameColumn="day_of_week_short_desc" uniqueMembers="false" type="Numeric" levelType="TimeDays" caption="%{captionDayOfWeek}"/>
+    </Hierarchy>
+  </Dimension>  
+  <Cube name="Comercial" caption="%{cubeSales}">
+    <Table name="oportunity"/>
+    <DimensionUsage name="PotentialName" source="PotentialName" foreignKey="potentialid"/>
+    <DimensionUsage name="PotentialType" source="PotentialType" foreignKey="potentialid"/>
+    <DimensionUsage name="PotentialLeadSource" source="PotentialLeadSource" foreignKey="potentialid"/>
+    <DimensionUsage name="PotentialSalesStage" source="PotentialSalesStage" foreignKey="potentialid"/>
+    <DimensionUsage name="PotentialAmount" source="PotentialAmount" foreignKey="potentialid"/>
+    <DimensionUsage name="PotentialWon" source="PotentialWon" foreignKey="potentialid"/>
+    <DimensionUsage name="Owner" source="Owner" foreignKey="potentialid"/>
+    <DimensionUsage name="Creator" source="Creator" foreignKey="potentialid"/>
+    <DimensionUsage name="CreatedYear" source="CreatedYear" foreignKey="createdon"/>
+    <DimensionUsage name="Created" source="Created" foreignKey="createdon"/>
+    <DimensionUsage name="ClosedYear" source="ClosedYear" foreignKey="closedon"/>
+    <DimensionUsage name="Closed" source="Closed" foreignKey="closedon"/>
+    <DimensionUsage name="CampaignName" source="CampaignName" foreignKey="campaignid"/>
+    <DimensionUsage name="CampaignType" source="CampaignType" foreignKey="campaignid"/>
+    <DimensionUsage name="CampaignStatus" source="CampaignStatus" foreignKey="campaignid"/>
+    <DimensionUsage name="InvoiceSubject" source="InvoiceSubject" foreignKey="invoiceid"/>
+    <DimensionUsage name="InvoiceStatus" source="InvoiceStatus" foreignKey="invoiceid"/>
+    <DimensionUsage name="SalesOrderSubject" source="SalesOrderSubject" foreignKey="salesorderid"/>
+    <DimensionUsage name="QuoteSubject" source="QuoteSubject" foreignKey="quoteid"/>
+    <DimensionUsage name="AccountName" source="AccountName" foreignKey="accountid"/>
+    <DimensionUsage name="AccountType" source="AccountType" foreignKey="accountid"/>
+    <DimensionUsage name="AccountIndustry" source="AccountIndustry" foreignKey="accountid"/>
+    <DimensionUsage name="AccountCity" source="AccountCity" foreignKey="accountid"/>
+    <DimensionUsage name="AccountCountry" source="AccountCountry" foreignKey="accountid"/>
+    <DimensionUsage name="AccountState" source="AccountState" foreignKey="accountid"/>
+    <DimensionUsage name="AccountZipCode" source="AccountZipCode" foreignKey="accountid"/>
+    <DimensionUsage name="ContactName" source="ContactName" foreignKey="contactid"/>
+    <DimensionUsage name="ContactType" source="ContactType" foreignKey="contactid"/>
+    <DimensionUsage name="ContactBirthDateYear" source="ContactBirthDateYear" foreignKey="contactid"/>
+    <DimensionUsage name="ContactBirthDate" source="ContactBirthDate" foreignKey="contactid"/>
+    <DimensionUsage name="ContactCity" source="ContactCity" foreignKey="contactid"/>
+    <DimensionUsage name="ContactCountry" source="ContactCountry" foreignKey="contactid"/>
+    <DimensionUsage name="ContactState" source="ContactState" foreignKey="contactid"/>
+    <DimensionUsage name="ContactZipCode" source="ContactZipCode" foreignKey="contactid"/>
+    <DimensionUsage name="ProductName" source="ProductName" foreignKey="productid"/>
+    <DimensionUsage name="ProductCode" source="ProductCode" foreignKey="productid"/>
+    <DimensionUsage name="ProductCategory" source="ProductCategory" foreignKey="productid"/>
+    <DimensionUsage name="ProductSaleStart" source="ProductSaleStart" foreignKey="productid"/>
+    <DimensionUsage name="ProductSaleStartYear" source="ProductSaleStartYear" foreignKey="productid"/>
+    <DimensionUsage name="ProductSaleEnd" source="ProductSaleEnd" foreignKey="productid"/>
+    <DimensionUsage name="ProductSaleEndYear" source="ProductSaleEndYear" foreignKey="productid"/>
+    <DimensionUsage name="ProductSupportStart" source="ProductSupportStart" foreignKey="productid"/>
+    <DimensionUsage name="ProductSupportStartYear" source="ProductSupportStartYear" foreignKey="productid"/>
+    <DimensionUsage name="ProductSupportEnd" source="ProductSupportEnd" foreignKey="productid"/>
+    <DimensionUsage name="ProductSupportEndYear" source="ProductSupportEndYear" foreignKey="productid"/>
+    <DimensionUsage name="VendorName" source="VendorName" foreignKey="vendorid"/>
+    <DimensionUsage name="VendorCategory" source="VendorCategory" foreignKey="vendorid"/>
+    <DimensionUsage name="VendorCity" source="VendorCity" foreignKey="vendorid"/>
+    <DimensionUsage name="VendorCountry" source="VendorCountry" foreignKey="vendorid"/>
+    <DimensionUsage name="VendorState" source="VendorState" foreignKey="vendorid"/>
+    <DimensionUsage name="VendorZipCode" source="VendorZipCode" foreignKey="vendorid"/>
+    <Measure name="Potential" column="potentialid" aggregator="distinct-count" formatString="Standard" caption="%{potentialCount}"/>
+    <Measure name="PotentialSale" column="potential_amount" aggregator="sum" formatString="Standard" caption="%{potentialSale}"/>
+  </Cube>
+</Schema>

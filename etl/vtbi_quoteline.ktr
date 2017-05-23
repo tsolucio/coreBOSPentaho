@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_quoteline</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>chgFields</from><to>Calculadora</to><enabled>Y</enabled> </hop>  <hop> <from>ExtendedCtes</from><to>delFields</to><enabled>Y</enabled> </hop>  <hop> <from>delFields</from><to>getDiscountsTaxes</to><enabled>Y</enabled> </hop>  <hop> <from>getDiscountsTaxes</from><to>chgFields</to><enabled>Y</enabled> </hop>  <hop> <from>vtbi_quoteline</from><to>getbiQuote</to><enabled>Y</enabled> </hop>  <hop> <from>getbiQuote</from><to>getbiProduct</to><enabled>Y</enabled> </hop>  <hop> <from>getbiProduct</from><to>ExtendedCtes</to><enabled>Y</enabled> </hop>  <hop> <from>Calculadora</from><to>Insertar&#47;Actualizar</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>Calculadora</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>extendedgross</field_name>
+<calc_type>MULTIPLY</calc_type>
+<field_a>quantity</field_a>
+<field_b>unitprice</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>extendedAD</field_name>
+<calc_type>ADD</calc_type>
+<field_a>extendedallowance</field_a>
+<field_b>extendeddiscount</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>extendednet</field_name>
+<calc_type>SUBTRACT</calc_type>
+<field_a>extendedgross</field_a>
+<field_b>extendedAD</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>contribution</field_name>
+<calc_type>SUBTRACT</calc_type>
+<field_a>extendednet</field_a>
+<field_b>extendedcost</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax1amount100</field_name>
+<calc_type>MULTIPLY</calc_type>
+<field_a>extendednet</field_a>
+<field_b>tax1percent</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax2amount100</field_name>
+<calc_type>MULTIPLY</calc_type>
+<field_a>extendednet</field_a>
+<field_b>tax2percent</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax3amount100</field_name>
+<calc_type>MULTIPLY</calc_type>
+<field_a>extendednet</field_a>
+<field_b>tax3percent</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax1amount</field_name>
+<calc_type>DIVIDE</calc_type>
+<field_a>tax1amount100</field_a>
+<field_b>cte100</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax2amount</field_name>
+<calc_type>DIVIDE</calc_type>
+<field_a>tax2amount100</field_a>
+<field_b>cte100</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax3amount</field_name>
+<calc_type>DIVIDE</calc_type>
+<field_a>tax3amount100</field_a>
+<field_b>cte100</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>tax1a2</field_name>
+<calc_type>ADD</calc_type>
+<field_a>tax1amount</field_a>
+<field_b>tax2amount</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>taxtotal</field_name>
+<calc_type>ADD</calc_type>
+<field_a>tax1a2</field_a>
+<field_b>tax3amount</field_b>
+<field_c/>
+<value_type>BigNumber</value_type>
+<value_length>25</value_length>
+<value_precision>3</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>681</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>ExtendedCtes</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>extendedallowance</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>25</length>
+        <precision>3</precision>
+      </field>
+      <field>
+        <name>extendedcost</name>
+        <type>BigNumber</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>25</length>
+        <precision>3</precision>
+      </field>
+      <field>
+        <name>cte100</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>100</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>cte0</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>0</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>321</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Insertar&#47;Actualizar</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema/>
+      <table>quoteline</table>
+      <key>
+        <name>quoteid</name>
+        <field>quoteid</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>productid</name>
+        <field>productid</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>sequence_no</name>
+        <field>sequence_no</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>quantity</name>
+        <rename>quantity</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>unitprice</name>
+        <rename>unitprice</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax1percent</name>
+        <rename>tax1percent</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax2percent</name>
+        <rename>tax2percent</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax3percent</name>
+        <rename>tax3percent</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>accountid</name>
+        <rename>accountid</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>creatorid</name>
+        <rename>creatorid</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>ownerid</name>
+        <rename>ownerid</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>vendorid</name>
+        <rename>vendorid</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendedallowance</name>
+        <rename>extendedallowance</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendedcost</name>
+        <rename>extendedcost</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendeddiscountpercent</name>
+        <rename>extendeddiscount</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendeddiscount</name>
+        <rename>extendeddiscountpercent</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendedgross</name>
+        <rename>extendedgross</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>extendednet</name>
+        <rename>extendednet</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>contribution</name>
+        <rename>contribution</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax1amount</name>
+        <rename>tax1amount</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax2amount</name>
+        <rename>tax2amount</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>tax3amount</name>
+        <rename>tax3amount</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>taxtotal</name>
+        <rename>taxtotal</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>createdon</name>
+        <rename>createdon</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>sequence_no</name>
+        <rename>sequence_no</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>quoteid</name>
+        <rename>quoteid</rename>
+        <update>N</update>
+      </value>
+      <value>
+        <name>productid</name>
+        <rename>productid</rename>
+        <update>N</update>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>776</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>chgFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>discount_percent</name>
+      </remove>      <remove>        <name>discount_amount</name>
+      </remove>      <meta>        <name>listprice</name>
+        <rename>unitprice</rename>
+        <type>-</type>
+        <length>25</length>
+        <precision>3</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>tax1</name>
+        <rename>tax1percent</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>3</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>tax2</name>
+        <rename>tax2percent</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>3</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>tax3</name>
+        <rename>tax3percent</rename>
+        <type>-</type>
+        <length>7</length>
+        <precision>3</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>biproductid</name>
+        <rename>productid</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>591</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>id</name>
+      </remove>      <remove>        <name>productid</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>411</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getDiscountsTaxes</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var egross=quantity.getBigNumber()*listprice.getBigNumber();
+
+if (discount_percent.getNumber()==0 &amp;&amp; discount_amount.getNumber()!=0) {
+  var extendeddiscount=discount_amount.getNumber();
+  var extendeddiscountpercent=extendeddiscount*100&#47;egross;
+} else if (discount_percent.getNumber()!=0 &amp;&amp; discount_amount.getNumber()==0) {
+  var extendeddiscount=discount_percent.getNumber()*egross&#47;100;
+  var extendeddiscountpercent=discount_percent.getNumber();
+} else {
+  var extendeddiscount=discount_amount.getNumber();
+  var extendeddiscountpercent=discount_percent.getNumber();
+}
+
+tax1.setValue(tax1.getNumber());
+tax2.setValue(tax2.getNumber());
+tax3.setValue(tax3.getNumber());</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>extendeddiscount</name>
+        <rename>extendeddiscount</rename>
+        <type>Number</type>
+        <length>16</length>
+        <precision>2</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>extendeddiscountpercent</name>
+        <rename>extendeddiscountpercent</rename>
+        <type>Number</type>
+        <length>16</length>
+        <precision>2</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>500</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiProduct</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>product</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>productid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>vendorid</name>
+          <lookup>vendor_id</lookup>
+          <update>String</update>
+        </field>
+        <return>
+          <name>idproduct</name>
+          <rename>biproductid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>231</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiQuote</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>quote</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>id</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>accountid</name>
+          <lookup>accountid</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>creatorid</name>
+          <lookup>creatorid</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>ownerid</name>
+          <lookup>ownerid</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Integer</update>
+        </field>
+        <return>
+          <name>idquote</name>
+          <rename>quoteid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>139</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtbi_quoteline</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT  id, productid, quantity, listprice, discount_percent, discount_amount, tax1, tax2, tax3, sequence_no, doccrm.createdtime
+FROM vtiger_inventoryproductrel
+INNER JOIN vtiger_crmentity as doccrm on doccrm.crmid=id
+INNER JOIN vtiger_crmentity as pdocrm on pdocrm.crmid=productid
+WHERE doccrm.deleted=0 and pdocrm.deleted=0 and doccrm.setype=&apos;Quotes&apos;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>51</xloc>
+      <yloc>82</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

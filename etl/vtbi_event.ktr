@@ -1,0 +1,1728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_event</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>getToday</from><to>chgHoyType</to><enabled>Y</enabled> </hop>  <hop> <from>getHoy</from><to>getTimes</to><enabled>Y</enabled> </hop>  <hop> <from>chgHoyType</from><to>getHoy</to><enabled>Y</enabled> </hop>  <hop> <from>getTimes</from><to>vtigerbi</to><enabled>Y</enabled> </hop>  <hop> <from>delFields</from><to>chgFields</to><enabled>Y</enabled> </hop>  <hop> <from>chgFields</from><to>getCreatedOn</to><enabled>Y</enabled> </hop>  <hop> <from>getCreatedOn</from><to>getDStart</to><enabled>Y</enabled> </hop>  <hop> <from>getDStart</from><to>getDDue</to><enabled>Y</enabled> </hop>  <hop> <from>getDDue</from><to>delDates</to><enabled>Y</enabled> </hop>  <hop> <from>delDates</from><to>chgDates</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>DefaultEntity</to><enabled>Y</enabled> </hop>  <hop> <from>delEntityID</from><to>setEntity</to><enabled>Y</enabled> </hop>  <hop> <from>DefaultEntity</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>chgDates</from><to>CaseSEType</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>set2Contact</to><enabled>Y</enabled> </hop>  <hop> <from>set2Contact</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>getbiOwner</from><to>getbiCreator</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCreator</from><to>delFields</to><enabled>Y</enabled> </hop>  <hop> <from>vtCalendar</from><to>getBIContact</to><enabled>Y</enabled> </hop>  <hop> <from>getBIContact</from><to>getbiOwner</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getBIAccount</to><enabled>Y</enabled> </hop>  <hop> <from>getBIAccount</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiLead</to><enabled>Y</enabled> </hop>  <hop> <from>getbiLead</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiVendor</to><enabled>Y</enabled> </hop>  <hop> <from>getbiVendor</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiHelpDesk</to><enabled>Y</enabled> </hop>  <hop> <from>getbiHelpDesk</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiFAQ</to><enabled>Y</enabled> </hop>  <hop> <from>getbiFAQ</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiCampaign</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCampaign</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiPotential</to><enabled>Y</enabled> </hop>  <hop> <from>getbiPotential</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiProduct</to><enabled>Y</enabled> </hop>  <hop> <from>getbiProduct</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiPriceBook</to><enabled>Y</enabled> </hop>  <hop> <from>getbiPriceBook</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiQuote</to><enabled>Y</enabled> </hop>  <hop> <from>getbiQuote</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiPO</to><enabled>Y</enabled> </hop>  <hop> <from>getbiPO</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiSO</to><enabled>Y</enabled> </hop>  <hop> <from>getbiSO</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>CaseSEType</from><to>getbiInvoice</to><enabled>Y</enabled> </hop>  <hop> <from>getbiInvoice</from><to>delEntityID</to><enabled>Y</enabled> </hop>  <hop> <from>setEntity</from><to>getLastInfo</to><enabled>Y</enabled> </hop>  <hop> <from>getLastInfo</from><to>getToday</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>CaseSEType</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<fieldname>setype</fieldname>
+<use_contains>N</use_contains>
+<case_value_type>String</case_value_type>
+<case_value_format/>
+<case_value_decimal/>
+<case_value_group/>
+<default_target_step>DefaultEntity</default_target_step>
+<cases><case><value>Accounts</value>
+<target_step>getBIAccount</target_step>
+</case><case><value>Contacts</value>
+<target_step>set2Contact</target_step>
+</case><case><value>Campaigns</value>
+<target_step>getbiCampaign</target_step>
+</case><case><value>Faq</value>
+<target_step>getbiFAQ</target_step>
+</case><case><value>HelpDesk</value>
+<target_step>getbiHelpDesk</target_step>
+</case><case><value>Invoice</value>
+<target_step>getbiInvoice</target_step>
+</case><case><value>Leads</value>
+<target_step>getbiLead</target_step>
+</case><case><value>Potentials</value>
+<target_step>getbiPotential</target_step>
+</case><case><value>PriceBooks</value>
+<target_step>getbiPriceBook</target_step>
+</case><case><value>Products</value>
+<target_step>getbiProduct</target_step>
+</case><case><value>PurchaseOrder</value>
+<target_step>getbiPO</target_step>
+</case><case><value>Quotes</value>
+<target_step>getbiQuote</target_step>
+</case><case><value>SalesOrder</value>
+<target_step>getbiSO</target_step>
+</case><case><value>Vendors</value>
+<target_step>getbiVendor</target_step>
+</case><case><value/>
+<target_step>DefaultEntity</target_step>
+</case></cases>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>96</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>DefaultEntity</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var bientityid=0;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>bientityid</name>
+        <rename>bientityid</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>763</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>chgDates</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>dstart</name>
+        <rename>date_start</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>ddue</name>
+        <rename>date_due</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>97</xloc>
+      <yloc>536</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>chgFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>createdtime</name>
+        <rename>createddate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>bicontactid</name>
+        <rename>contactid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>biownerid</name>
+        <rename>ownerid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>bicreatorid</name>
+        <rename>creatorid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>388</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>chgHoyType</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>hoy</name>
+        <rename>hoy</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>536</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delDates</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>date_start</name>
+      </remove>      <remove>        <name>due_date</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>96</xloc>
+      <yloc>614</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delEntityID</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>entityid</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>342</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>smcreatorid</name>
+      </remove>      <remove>        <name>smownerid</name>
+      </remove>      <remove>        <name>contactid</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>314</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCreatedOn</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>createddate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>createdon</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>460</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getDDue</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>due_date</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>ddue</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>614</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getDStart</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>date_start</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>dstart</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>536</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getHoy</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>hoybd</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>460</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getTimes</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+&#47;&#47; Calc closedon and final elapsedtime on close transition
+if ((status.getString()==&apos;Held&apos; || status.getString()==&apos;Not Held&apos;) &amp;&amp; laststatus.getString()==&apos;Planned&apos;) {
+  closedon.setValue(hoybd.getInteger());
+  elapsedtime.setValue(hoybd.getInteger()-createdon.getInteger());
+}
+
+&#47;&#47; Calc elapsedtime
+if (status.getString()==&apos;Planned&apos;) {
+  elapsedtime.setValue(hoybd.getInteger()-createdon.getInteger());
+}
+</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getToday</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var hoy=date2str(new Date(),&apos;yyyy&#47;MM&#47;dd&apos;);</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>hoy</name>
+        <rename>hoy</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>614</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>set2Contact</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var bientityid=contactid.getInteger();</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>bientityid</name>
+        <rename>bientityid</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>61</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>setEntity</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>setype</name>
+        <rename>entitytype</rename>
+        <type>String</type>
+        <length>30</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>bientityid</name>
+        <rename>entityid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>337</xloc>
+      <yloc>536</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtCalendar</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT vtiger_activity.*,vtiger_crmentity.crmid,vtiger_crmentity.smcreatorid,vtiger_crmentity.smownerid,vtiger_crmentity.createdtime,
+       ev_parent.crmid as entityid,ev_parent.setype,vtiger_cntactivityrel.contactid
+FROM vtiger_activity
+INNER JOIN vtiger_crmentity on vtiger_crmentity.crmid=activityid
+LEFT JOIN vtiger_seactivityrel on vtiger_seactivityrel.activityid=vtiger_activity.activityid
+LEFT JOIN vtiger_crmentity as ev_parent on ev_parent.crmid=vtiger_seactivityrel.crmid
+LEFT JOIN vtiger_cntactivityrel on vtiger_cntactivityrel.activityid=vtiger_activity.activityid
+WHERE vtiger_crmentity.deleted=0</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>18</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtigerbi</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>event</table>
+      <connection>vtigerbi</connection>
+      <commit>1000</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>crmid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>subject</name>
+          <lookup>subject</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>semodule</name>
+          <lookup>semodule</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>activitytype</name>
+          <lookup>activitytype</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>time_start</name>
+          <lookup>time_start</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>time_end</name>
+          <lookup>time_end</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>sendnotification</name>
+          <lookup>sendnotification</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>duration_hours</name>
+          <lookup>duration_hours</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>duration_minutes</name>
+          <lookup>duration_minutes</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>status</name>
+          <lookup>status</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>eventstatus</name>
+          <lookup>eventstatus</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>priority</name>
+          <lookup>priority</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>location</name>
+          <lookup>location</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>recurringtype</name>
+          <lookup>recurringtype</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>entitytype</name>
+          <lookup>entitytype</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>contactid</name>
+          <lookup>contactid</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>ownerid</name>
+          <lookup>ownerid</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>creatorid</name>
+          <lookup>creatorid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>date_start</name>
+          <lookup>date_start</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>date_due</name>
+          <lookup>date_due</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>entityid</name>
+          <lookup>entityid</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>elapsedtime</name>
+          <lookup>elapsedtime</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>closedon</name>
+          <lookup>closedon</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>visibility</name>
+          <lookup>visibility</lookup>
+          <update>Punch through</update>
+        </field>
+        <return>
+          <name>idevent</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence>event_idevent_seq</sequence>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>5000</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>512</xloc>
+      <yloc>367</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCreator</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smcreatorid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>bicreatorid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiOwner</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smownerid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>biownerid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>166</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getBIContact</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>contact</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>contactid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idcontact</name>
+          <rename>bicontactid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>22</xloc>
+      <yloc>92</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getBIAccount</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>account</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idaccount</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>7</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiLead</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>lead</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idlead</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>115</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiVendor</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>vendor</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idvendor</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>169</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiHelpDesk</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>helpdesk</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idhelpdesk</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>223</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiFAQ</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>faq</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idfaq</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>277</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCampaign</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>campaign</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idcampaign</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>331</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiPotential</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>potential</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idpotential</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>385</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiProduct</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>product</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idproduct</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>439</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiPriceBook</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>pricebook</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idpricebook</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>493</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiQuote</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>quote</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idquote</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>547</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiPO</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>purchaseorder</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idpurchaseorder</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>601</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiSO</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>salesorder</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idsalesorder</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>655</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiInvoice</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>invoice</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>entityid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idinvoice</name>
+          <rename>bientityid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>235</xloc>
+      <yloc>709</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getLastInfo</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>event</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>crmid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createddate</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>laststatus</name>
+          <lookup>status</lookup>
+          <update>String</update>
+        </field>
+        <field>
+          <name>elapsedtime</name>
+          <lookup>elapsedtime</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>closedon</name>
+          <lookup>closedon</lookup>
+          <update>Integer</update>
+        </field>
+        <return>
+          <name>idevent</name>
+          <rename>bieventid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>337</xloc>
+      <yloc>614</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

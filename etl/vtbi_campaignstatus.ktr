@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_campaignstatus</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>getStatus</from><to>delStatus</to><enabled>Y</enabled> </hop>  <hop> <from>stPlan</from><to>stAct</to><enabled>Y</enabled> </hop>  <hop> <from>stAct</from><to>getActDate</to><enabled>Y</enabled> </hop>  <hop> <from>stComp</from><to>getCompDate</to><enabled>Y</enabled> </hop>  <hop> <from>stComp</from><to>stCan</to><enabled>Y</enabled> </hop>  <hop> <from>stCan</from><to>getCanDate</to><enabled>Y</enabled> </hop>  <hop> <from>stPlan</from><to>getPlanDate</to><enabled>Y</enabled> </hop>  <hop> <from>getToday</from><to>chgHoyType</to><enabled>Y</enabled> </hop>  <hop> <from>getPlanDate</from><to>updPlan</to><enabled>Y</enabled> </hop>  <hop> <from>getActDate</from><to>updAct</to><enabled>Y</enabled> </hop>  <hop> <from>getCompDate</from><to>updComp</to><enabled>Y</enabled> </hop>  <hop> <from>getCanDate</from><to>updObs</to><enabled>Y</enabled> </hop>  <hop> <from>getInactDate</from><to>updInact</to><enabled>Y</enabled> </hop>  <hop> <from>stInact</from><to>getInactDate</to><enabled>Y</enabled> </hop>  <hop> <from>stAct</from><to>stInact</to><enabled>Y</enabled> </hop>  <hop> <from>stInact</from><to>stComp</to><enabled>Y</enabled> </hop>  <hop> <from>delStatus</from><to>renStatus</to><enabled>Y</enabled> </hop>  <hop> <from>renStatus</from><to>stPlan</to><enabled>Y</enabled> </hop>  <hop> <from>vtbi_campaign</from><to>getToday</to><enabled>Y</enabled> </hop>  <hop> <from>chgHoyType</from><to>getbiCampaign</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCampaign</from><to>getStatus</to><enabled>Y</enabled> </hop>  <hop> <from>stCan</from><to>getHoy</to><enabled>Y</enabled> </hop>  <hop> <from>getHoy</from><to>getETime</to><enabled>Y</enabled> </hop>  <hop> <from>getETime</from><to>updTimes</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>chgHoyType</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>hoy</name>
+        <rename>hoy</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>284</xloc>
+      <yloc>28</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delStatus</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>active</name>
+      </remove>      <remove>        <name>activedate</name>
+      </remove>      <remove>        <name>inactive</name>
+      </remove>      <remove>        <name>inactivedate</name>
+      </remove>      <remove>        <name>planning</name>
+      </remove>      <remove>        <name>planningdate</name>
+      </remove>      <remove>        <name>cancelled</name>
+      </remove>      <remove>        <name>cancelleddate</name>
+      </remove>      <remove>        <name>completed</name>
+      </remove>      <remove>        <name>completeddate</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>265</xloc>
+      <yloc>113</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getActDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>activedate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>265</xloc>
+      <yloc>277</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCanDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>cancelleddate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>264</xloc>
+      <yloc>529</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCompDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>completeddate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>264</xloc>
+      <yloc>443</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getInactDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>inactivedate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>264</xloc>
+      <yloc>359</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getPlanDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>planningdate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>265</xloc>
+      <yloc>189</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getStatus</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var actdate = (activedate.getInteger()==null ? -1 : activedate.getInteger());
+var inadate = (inactivedate.getInteger()==null ? -1 : inactivedate.getInteger());
+var plndate = (planningdate.getInteger()==null ? -1 : planningdate.getInteger());
+var cpldate = (completeddate.getInteger()==null ? -1 : completeddate.getInteger());
+var cnldate = (cancelleddate.getInteger()==null ? -1 : cancelleddate.getInteger());
+
+if (campaignstatus.getString()==&apos;Active&apos;) {
+ if (active.getInteger()==0) {
+  var c_act = 1;
+ } else if (activedate.getInteger()&gt;inadate &amp;&amp; activedate.getInteger() &gt; plndate &amp;&amp; activedate.getInteger() &gt; cpldate &amp;&amp; activedate.getInteger() &gt; cnldate) {
+  var c_act = 0;
+ } else {
+  var c_act = 1;
+ }
+} else {
+  var c_act = 0;
+}
+
+if (campaignstatus.getString()==&apos;Inactive&apos;) {
+ if (inactive.getInteger()==0) {
+  var c_ina = 1;
+ } else if (inactivedate.getInteger()&gt;actdate &amp;&amp; inactivedate.getInteger() &gt; plndate &amp;&amp; inactivedate.getInteger() &gt; cpldate &amp;&amp; inactivedate.getInteger() &gt; cnldate) {
+  var c_ina = 0;
+ } else {
+  var c_ina = 1;
+ }
+} else {
+  var c_ina = 0;
+}
+
+if (campaignstatus.getString()==&apos;Planning&apos;) {
+ if (planning.getInteger()==0) {
+  var c_pln = 1;
+ } else if (planningdate.getInteger()&gt;actdate &amp;&amp; planningdate.getInteger() &gt; inadate &amp;&amp; planningdate.getInteger() &gt; cpldate &amp;&amp; planningdate.getInteger() &gt; cnldate) {
+  var c_pln = 0;
+ } else {
+  var c_pln = 1;
+ }
+} else {
+  var c_pln = 0;
+}
+
+if (campaignstatus.getString()==&apos;Completed&apos;) {
+ if (completed.getInteger()==0) {
+  var c_cmp = 1;
+ } else if (completeddate.getInteger()&gt;actdate &amp;&amp; completeddate.getInteger() &gt; inadate &amp;&amp; completeddate.getInteger() &gt; plndate &amp;&amp; completeddate.getInteger() &gt; cnldate) {
+  var c_cmp = 0;
+ } else {
+  var c_cmp = 1;
+ }
+} else {
+  var c_cmp = 0;
+}
+
+if (campaignstatus.getString()==&apos;Cancelled&apos;) {
+ if (cancelled.getInteger()==0) {
+  var c_cnl = 1;
+ } else if (cancelleddate.getInteger()&gt;actdate &amp;&amp; cancelleddate.getInteger() &gt; inadate &amp;&amp; cancelleddate.getInteger() &gt; plndate &amp;&amp; cancelleddate.getInteger() &gt; cpldate) {
+  var c_cnl = 0;
+ } else {
+  var c_cnl = 1;
+ }
+} else {
+  var c_cnl = 0;
+}
+</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>c_act</name>
+        <rename>c_act</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>c_ina</name>
+        <rename>c_ina</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>c_pln</name>
+        <rename>c_pln</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>c_cmp</name>
+        <rename>c_cmp</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>c_cnl</name>
+        <rename>c_cnl</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>383</xloc>
+      <yloc>111</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getToday</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var hoy=date2str(new Date(),&apos;yyyy&#47;MM&#47;dd&apos;);</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>hoy</name>
+        <rename>hoy</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>202</xloc>
+      <yloc>28</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>renStatus</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>c_act</name>
+        <rename>active</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>c_ina</name>
+        <rename>inactive</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>c_pln</name>
+        <rename>planning</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>c_cmp</name>
+        <rename>completed</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>c_cnl</name>
+        <rename>cancelled</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>119</xloc>
+      <yloc>113</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>stAct</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getActDate</send_true_to>
+<send_false_to>stInact</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>active</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>119</xloc>
+      <yloc>277</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>stCan</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getCanDate</send_true_to>
+<send_false_to>getHoy</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>cancelled</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>118</xloc>
+      <yloc>529</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>stComp</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getCompDate</send_true_to>
+<send_false_to>stCan</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>completed</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>118</xloc>
+      <yloc>443</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>stInact</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getInactDate</send_true_to>
+<send_false_to>stComp</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>inactive</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>118</xloc>
+      <yloc>359</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>stPlan</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getPlanDate</send_true_to>
+<send_false_to>stAct</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>planning</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>#</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>119</xloc>
+      <yloc>189</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updAct</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>active</name>
+        <rename>active</rename>
+        </value>
+      <value>
+        <name>activedate</name>
+        <rename>activedate</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>375</xloc>
+      <yloc>277</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updComp</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>completed</name>
+        <rename>completed</rename>
+        </value>
+      <value>
+        <name>completeddate</name>
+        <rename>completeddate</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>374</xloc>
+      <yloc>443</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updInact</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>inactive</name>
+        <rename>inactive</rename>
+        </value>
+      <value>
+        <name>inactivedate</name>
+        <rename>inactivedate</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>374</xloc>
+      <yloc>359</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updObs</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>cancelled</name>
+        <rename>cancelled</rename>
+        </value>
+      <value>
+        <name>cancelleddate</name>
+        <rename>cancelleddate</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>373</xloc>
+      <yloc>529</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updPlan</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>planning</name>
+        <rename>planning</rename>
+        </value>
+      <value>
+        <name>planningdate</name>
+        <rename>planningdate</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>375</xloc>
+      <yloc>189</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtbi_campaign</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT crmid,createdtime
+FROM vtiger_campaign
+INNER JOIN vtiger_crmentity on crmid=campaignid
+WHERE deleted=0</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>111</xloc>
+      <yloc>28</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCampaign</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>campaign</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>crmid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>active</name>
+          <lookup>active</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>activedate</name>
+          <lookup>activedate</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>inactive</name>
+          <lookup>inactive</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>inactivedate</name>
+          <lookup>inactivedate</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>planning</name>
+          <lookup>planning</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>planningdate</name>
+          <lookup>planningdate</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>cancelled</name>
+          <lookup>cancelled</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>cancelleddate</name>
+          <lookup>cancelleddate</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>completed</name>
+          <lookup>completed</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>completeddate</name>
+          <lookup>completeddate</lookup>
+          <update>Integer</update>
+        </field>
+        <field>
+          <name>campaignstatus</name>
+          <lookup>campaignstatus</lookup>
+          <update>String</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Integer</update>
+        </field>
+        <return>
+          <name>idcampaign</name>
+          <rename>bicampaignid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>383</xloc>
+      <yloc>28</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getETime</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+if (completed.getInteger()==0) {
+  var elapsedtime=hoybd.getInteger()-createdon.getInteger();
+} else {
+  var elapsedtime=completed.getInteger()-createdon.getInteger();
+}</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>elapsedtime</name>
+        <rename>elapsedtime</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>263</xloc>
+      <yloc>610</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getHoy</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>hoy</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>hoybd</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>117</xloc>
+      <yloc>610</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>updTimes</name>
+    <type>Update</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <skip_lookup>N</skip_lookup>
+    <commit>100</commit>
+    <error_ignored>N</error_ignored>
+    <ignore_flag_field/>
+    <lookup>
+      <schema/>
+      <table>campaign</table>
+      <key>
+        <name>bicampaignid</name>
+        <field>idcampaign</field>
+        <condition>=</condition>
+        <name2/>
+        </key>
+      <value>
+        <name>elapsedtime</name>
+        <rename>elapsedtime</rename>
+        </value>
+      </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>369</xloc>
+      <yloc>610</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

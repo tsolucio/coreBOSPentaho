@@ -1,0 +1,20 @@
+Index: Smarty/templates/Header.tpl
+===================================================================
+--- Smarty/templates/Header.tpl	(revisión: 1324)
++++ Smarty/templates/Header.tpl	(copia de trabajo)
+@@ -121,6 +121,7 @@
+ </tr>
+ </TABLE>
+ <!-- - level 2 tabs starts-->
++{if $MODULE_NAME neq 'BIReporting'}
+ <TABLE border=0 cellspacing=0 cellpadding=2 width=100% class="level2Bg" >
+ <tr>
+ 	<td >
+@@ -143,6 +144,7 @@
+ </tr>
+ </TABLE>		
+ <!-- Level 2 tabs ends -->
++{/if}
+ <div id="calculator_cont" style="position:absolute; z-index:10000" ></div>
+ 	{include file="Clock.tpl"}
+ 

@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<module>
+<type>extension</type>
+<name>BIReporting</name>
+<label>BIReporting</label>
+<parent>Analytics</parent>
+<dependencies>
+<vtiger_version>5.1.0</vtiger_version>
+</dependencies>
+<license>
+<inline><![CDATA[
+ ********************************************************************************
+ * The contents of these file are subject to COPYRIGHT JPL TSOLUCIO, S.L. (C)
+ * You may not use this file except in compliance with the License.
+ * Software distributed under the License is distributed on an  "AS IS"  basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for
+ * the specific language governing rights and limitations under the License.
+ ********************************************************************************
+ *  Module       : BIReporting Integration with Pentaho
+ *  Version      : 5.1
+ *  Author       : Joe Bordes JPL TSolucio, S. L.
+ *  Licensed to  : 
+ ********************************************************************************
+]]></inline>
+</license>
+<tables>
+<table>
+<name>productline</name>
+<sql><![CDATA[CREATE VIEW `productline` AS
+    SELECT `id` , `productid` , `sequence_no` , `quantity` , `listprice` , `comment` , `description` ,
+     coalesce( `tax1` , 0 ) AS tax1, coalesce( `tax2` , 0 ) AS tax2, coalesce( `tax3` , 0 ) AS tax3,
+     `quantity` * `listprice` AS extgross,
+     COALESCE( discount_percent, COALESCE( discount_amount *100 / ( `quantity` * `listprice` ) , 0 ) ) AS `discount_percent`,
+     COALESCE( discount_amount, COALESCE( discount_percent * `quantity` * `listprice` /100, 0 ) ) AS `discount_amount`,
+     (quantity * listprice) - COALESCE( discount_amount, COALESCE( discount_percent * quantity * listprice /100, 0 )) AS extnet,
+     ((quantity * listprice) - COALESCE( discount_amount, COALESCE( discount_percent * quantity * listprice /100, 0 ))) * ( COALESCE( tax1, 0 ) + COALESCE( tax2, 0 ) + COALESCE( tax3, 0 ) ) /100 AS linetax,
+     ((quantity * listprice) - COALESCE( discount_amount, COALESCE( discount_percent * quantity * listprice /100, 0 ))) * ( 1 + ( COALESCE( tax1, 0 ) + COALESCE( tax2, 0 ) + COALESCE( tax3, 0 )) /100) AS linetotal
+    FROM vtiger_inventoryproductrel]]></sql>
+</table>
+<table>
+<name>getTotalIndividualTax</name>
+<sql><![CDATA[CREATE FUNCTION getTotalIndividualTax(entityid INT) RETURNS FLOAT RETURN (SELECT SUM( linetax ) AS taxtotales FROM productline WHERE id = entityid)]]></sql>
+</table>
+</tables>
+</module>

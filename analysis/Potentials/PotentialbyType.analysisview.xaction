@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <name>PotentialType.analysisview.xaction</name>
+  <title>%title</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author>Joe Bordes</author>  
+    <help/>  
+    <result-type>report</result-type>  
+    <description>%description</description>  
+    <icon>bisupport_default.png</icon> 
+  </documentation>
+
+  <inputs> 
+    <mode type="string"> 
+      <default-value/>  
+      <sources> 
+        <request>mode</request> 
+      </sources> 
+    </mode> 
+  </inputs>
+
+  <outputs> 
+    <model type="string"/>  
+    <connection type="string"/>  
+    <mdx type="string"/>  
+    <options type="list"/>  
+    <title type="string"/>  
+    <url type="string"> 
+      <destinations> 
+        <response>redirect</response> 
+      </destinations> 
+    </url>  
+    <chartaxistickfontsize type="string"/>  
+    <chartslicerfontsize type="string"/>  
+    <chartlegendfontfamily type="string"/>  
+    <showgrid type="string"/>  
+    <actionreference type="string"/>  
+    <chartaxislabelfontsize type="string"/>  
+    <chartslicerlocation type="string"/>  
+    <chartaxistickfontfamily type="string"/>  
+    <chartheight type="string"/>  
+    <chartslicerfontfamily type="string"/>  
+    <chartvertaxislabel type="string"/>  
+    <chartaxislabelfontstyle type="string"/>  
+    <chartdrillthroughenabled type="string"/>  
+    <chartbackgroundb type="string"/>  
+    <chartwidth type="string"/>  
+    <role type="string"/>  
+    <chartaxistickfontstyle type="string"/>  
+    <charttitlefontsize type="string"/>  
+    <chartbackgroundg type="string"/>  
+    <chartlegendfontstyle type="string"/>  
+    <chartshowslicer type="string"/>  
+    <charttitlefontstyle type="string"/>  
+    <chartlegendlocation type="string"/>  
+    <chartlocation type="string"/>  
+    <chartbackgroundr type="string"/>  
+    <charttype type="string"/>  
+    <chartaxislabelfontfamily type="string"/>  
+    <chartlegendfontsize type="string"/>  
+    <chartshowlegend type="string"/>  
+    <chartaxisticklabelrotation type="string"/>  
+    <charthorizaxislabel type="string"/>  
+    <charttitle type="string"/>  
+    <chartsliceralignment type="string"/>  
+    <chartslicerfontstyle type="string"/>  
+    <charttitlefontfamily type="string"/>  
+    <query type="string"/>
+  </outputs>
+
+  <resources/>
+  
+  <actions> 
+    <action-definition> 
+      <component-name>PivotViewComponent</component-name>
+      <action-type>Pivot View</action-type>
+      <action-inputs> 
+        <mode type="string"/> 
+      </action-inputs>
+      <action-outputs> 
+        <model type="string"/>  
+        <connection type="string"/>  
+        <mdx type="string"/>  
+        <options type="list"/>  
+        <title type="string"/>  
+        <url type="string"/>  
+        <chartaxistickfontsize type="string"/>  
+        <chartslicerfontsize type="string"/>  
+        <chartlegendfontfamily type="string"/>  
+        <showgrid type="string"/>  
+        <actionreference type="string"/>  
+        <chartaxislabelfontsize type="string"/>  
+        <chartslicerlocation type="string"/>  
+        <chartaxistickfontfamily type="string"/>  
+        <chartheight type="string"/>  
+        <chartslicerfontfamily type="string"/>  
+        <chartvertaxislabel type="string"/>  
+        <chartaxislabelfontstyle type="string"/>  
+        <chartdrillthroughenabled type="string"/>  
+        <chartbackgroundb type="string"/>  
+        <chartwidth type="string"/>  
+        <role type="string"/>  
+        <chartaxistickfontstyle type="string"/>  
+        <charttitlefontsize type="string"/>  
+        <chartbackgroundg type="string"/>  
+        <chartlegendfontstyle type="string"/>  
+        <chartshowslicer type="string"/>  
+        <charttitlefontstyle type="string"/>  
+        <chartlegendlocation type="string"/>  
+        <chartlocation type="string"/>  
+        <chartbackgroundr type="string"/>  
+        <charttype type="string"/>  
+        <chartaxislabelfontfamily type="string"/>  
+        <chartlegendfontsize type="string"/>  
+        <chartshowlegend type="string"/>  
+        <chartaxisticklabelrotation type="string"/>  
+        <charthorizaxislabel type="string"/>  
+        <charttitle type="string"/>  
+        <chartsliceralignment type="string"/>  
+        <chartslicerfontstyle type="string"/>  
+        <charttitlefontfamily type="string"/>  
+        <query type="string"/>
+      </action-outputs>
+      <component-definition> 
+        <title>%title</title>  
+        <viewer>Pivot</viewer>  
+        <model>solution:vtigerbi/analysis/bicomer.mondrian.xml</model>  
+        <options> 
+          <personal/>  
+          <cube-nav/>  
+          <mdx-edit/>  
+          <sort-conf/>  
+          <spacer/>  
+          <level-style/>  
+          <hide-spans/>  
+          <properties/>  
+          <non-empty/>  
+          <swap-axes/>  
+          <spacer/>  
+          <drill-member/>  
+          <drill-position/>  
+          <drill-replace/>  
+          <drill-thru/>  
+          <spacer/>  
+          <chart/>  
+          <chart-conf/>  
+          <spacer/>  
+          <print-conf/>  
+          <print-pdf/>  
+          <spacer/>  
+          <excel/> 
+        </options>  
+        <query><![CDATA[select NON EMPTY Crossjoin({[Measures].[Potential]}, [PotentialWon].[All PotentialWons].Children) ON COLUMNS,
+  NON EMPTY [PotentialType].[All PotentialTypes].Children ON ROWS
+from [Comercial]]]></query>  
+        <jndi>vtigerbi</jndi>  
+        <chartaxistickfontsize>12</chartaxistickfontsize>  
+        <chartslicerfontsize>12</chartslicerfontsize>  
+        <chartlegendfontfamily>SansSerif</chartlegendfontfamily>  
+        <showgrid>true</showgrid>  
+        <actionreference>vtigerbi/analysis/bicomer_default.xaction</actionreference>  
+        <chartaxislabelfontsize>12</chartaxislabelfontsize>  
+        <chartslicerlocation>1</chartslicerlocation>  
+        <chartaxistickfontfamily>SansSerif</chartaxistickfontfamily>  
+        <chartheight>300</chartheight>  
+        <chartslicerfontfamily>SansSerif</chartslicerfontfamily>  
+        <chartvertaxislabel></chartvertaxislabel>  
+        <chartaxislabelfontstyle>0</chartaxislabelfontstyle>  
+        <chartdrillthroughenabled>false</chartdrillthroughenabled>  
+        <chartbackgroundb>255</chartbackgroundb>  
+        <chartwidth>500</chartwidth>  
+        <role/>  
+        <chartaxistickfontstyle>0</chartaxistickfontstyle>  
+        <charttitlefontsize>18</charttitlefontsize>  
+        <chartbackgroundg>255</chartbackgroundg>  
+        <mdx>select NON EMPTY {[Measures].[Potential]} ON COLUMNS, NON EMPTY {[PotentialName].[All PotentialNames]} ON ROWS from [Comercial]</mdx>  
+        <chartlegendfontstyle>0</chartlegendfontstyle>  
+        <chartshowslicer>true</chartshowslicer>  
+        <charttitlefontstyle>1</charttitlefontstyle>  
+        <connection/>  
+        <chartlegendlocation>3</chartlegendlocation>  
+        <chartlocation>bottom</chartlocation>  
+        <chartbackgroundr>255</chartbackgroundr>  
+        <charttype>7</charttype>  
+        <chartaxislabelfontfamily>SansSerif</chartaxislabelfontfamily>  
+        <chartlegendfontsize>10</chartlegendfontsize>  
+        <chartshowlegend>true</chartshowlegend>  
+        <chartaxisticklabelrotation>30</chartaxisticklabelrotation>  
+        <charthorizaxislabel></charthorizaxislabel>  
+        <charttitle>Potentials by Type</charttitle>  
+        <chartsliceralignment>3</chartsliceralignment>  
+        <chartslicerfontstyle>0</chartslicerfontstyle>  
+        <charttitlefontfamily>SansSerif</charttitlefontfamily> 
+      </component-definition>  
+      <action-name>Pivot View</action-name>  
+      <logging-level>DEBUG</logging-level> 
+    </action-definition>
+ 
+  </actions> 
+</action-sequence>

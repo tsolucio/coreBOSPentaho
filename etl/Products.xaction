@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>%title</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author>JPL TSolucio,S.L.</author>  
+    <description>%description</description>  
+    <help>%help</help>  
+    <result-type/>  
+    <icon/> 
+  </documentation>
+
+  <inputs/>
+
+  <outputs/>
+
+  <resources>
+    <transformation-file>
+      <solution-file>
+        <location>vtbi_product.ktr</location>
+        <mime-type>text/plain</mime-type>
+      </solution-file>
+    </transformation-file>
+  </resources>
+  
+  <actions> 
+    <action-definition>
+      <component-name>KettleComponent</component-name>
+      <action-type>Product ETL</action-type>
+      <action-resources>
+        <transformation-file type="resource"/>
+      </action-resources>
+      <component-definition/>
+    </action-definition>
+
+  </actions> 
+</action-sequence>

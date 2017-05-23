@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report-spec tool='waqr' tool-version='1.0' >
+<report-name><![CDATA[AccountInvoices]]></report-name>
+<report-desc><![CDATA[]]></report-desc>
+<query>
+<mql>
+<domain_type>relational</domain_type>
+<domain_id><![CDATA[vtigerbi]]></domain_id><model_id><![CDATA[crmAccounts]]></model_id>
+<options>
+<disable_distinct>false</disable_distinct>
+</options>
+<selections>
+<selection><view>BC_VTIGER_ACCOUNT</view><column>CRM_ACCOUNT_ACCOUNTID</column></selection>
+<selection><view>BC_VTIGER_ACCOUNT</view><column>CRM_ACCOUNT_ACCOUNTNAME</column></selection>
+<selection><view>BC_VTIGER_INVOICE</view><column>CRM_INVOICE_INVOICE_NO</column></selection>
+<selection><view>BC_VTIGER_INVOICE</view><column>CRM_INVOICE_SUBJECT</column></selection>
+<selection><view>BC_VTIGER_INVOICE</view><column>CRM_INVOICE_TOTAL</column></selection>
+</selections>
+<constraints>
+</constraints>
+<orders>
+<order><direction>asc</direction><view_id>BC_VTIGER_ACCOUNT</view_id><column_id>CRM_ACCOUNT_ACCOUNTID</column_id></order>
+</orders>
+</mql>
+</query>
+<field-mapping key="reportheader" value="Account Invoices"/><field-mapping key="reportfooter" value=""/><field-mapping key="pageheader" value=""/><field-mapping key="pagefooter" value=""/><page-format><![CDATA[A4]]></page-format>
+<orientation><![CDATA[portrait]]></orientation>
+<field is-detail="true" name="CRM_ACCOUNT_ACCOUNTID" horizontal-alignment="center" format="" expression="none" type="2"/>
+<field is-detail="true" name="CRM_ACCOUNT_ACCOUNTNAME" horizontal-alignment="left" expression="none" type="12"/>
+<field is-detail="true" name="CRM_INVOICE_INVOICE_NO" horizontal-alignment="left" expression="none" type="12"/>
+<field is-detail="true" name="CRM_INVOICE_SUBJECT" horizontal-alignment="left" expression="none" type="12"/>
+<field is-detail="true" name="CRM_INVOICE_TOTAL" horizontal-alignment="right" format="#,###.##;-#,###.##" expression="sum" type="2"/>
+</report-spec>

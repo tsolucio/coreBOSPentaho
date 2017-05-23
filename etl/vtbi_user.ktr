@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_user</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>getCreatedOn</from><to>vtigerbi</to><enabled>Y</enabled> </hop>  <hop> <from>vtUser</from><to>getbiCurrency</to><enabled>Y</enabled> </hop>  <hop> <from>delFields</from><to>chgFields</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCurrency</from><to>getbiReportsto</to><enabled>Y</enabled> </hop>  <hop> <from>getbiReportsto</from><to>delFields</to><enabled>Y</enabled> </hop>  <hop> <from>chgFields</from><to>getCreatedOn</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>chgFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>bicurrencyid</name>
+        <rename>currency_id</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>bireportstoid</name>
+        <rename>reports_to_id</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>399</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>reports_to_id</name>
+      </remove>      <remove>        <name>currency_id</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>309</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCreatedOn</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>date_entered</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>createdon</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>489</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCurrency</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>currency</table>
+      <orderby>version desc</orderby>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>currency_id</name>
+        <field>currencyid</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>idcurrency</name>
+        <rename>bicurrencyid</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>129</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiReportsto</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>user</table>
+      <orderby>version desc</orderby>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>reports_to_id</name>
+        <field>userid</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iduser</name>
+        <rename>bireportstoid</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>219</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtUser</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT
+  id
+, user_name
+, user_password
+, user_hash
+, cal_color
+, first_name
+, last_name
+, reports_to_id
+, is_admin
+, currency_id
+, description
+, date_entered
+, title
+, department
+, phone_home
+, phone_mobile
+, phone_work
+, phone_other
+, phone_fax
+, email1
+, email2
+, yahoo_id
+, status
+, signature
+, address_street
+, address_city
+, address_state
+, address_country
+, address_postalcode
+, user_preferences
+, tz
+, holidays
+, namedays
+, workdays
+, weekstart
+, date_format
+, hour_format
+, start_hour
+, end_hour
+, activity_view
+, lead_view
+, imagename
+, deleted
+, confirm_password
+, tagcloud
+, internal_mailer
+, crypt_type
+, accesskey
+FROM vtiger_users
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>39</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtigerbi</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>1000</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>id</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>address_city</name>
+          <lookup>address_city</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>address_country</name>
+          <lookup>address_country</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>address_postalcode</name>
+          <lookup>address_postalcode</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>address_state</name>
+          <lookup>address_state</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>address_street</name>
+          <lookup>address_street</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>currency_id</name>
+          <lookup>currency_id</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>deleted</name>
+          <lookup>deleted</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>department</name>
+          <lookup>department</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>email1</name>
+          <lookup>email1</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>email2</name>
+          <lookup>email2</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>first_name</name>
+          <lookup>first_name</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>is_admin</name>
+          <lookup>is_admin</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>last_name</name>
+          <lookup>last_name</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone_fax</name>
+          <lookup>phone_fax</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone_home</name>
+          <lookup>phone_home</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone_mobile</name>
+          <lookup>phone_mobile</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone_other</name>
+          <lookup>phone_other</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone_work</name>
+          <lookup>phone_work</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>reports_to_id</name>
+          <lookup>reports_to_id</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>status</name>
+          <lookup>status</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>title</name>
+          <lookup>title</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>user_name</name>
+          <lookup>user_name</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>yahoo_id</name>
+          <lookup>yahoo_id</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>accesskey</name>
+          <lookup>accesskey</lookup>
+          <update>Punch through</update>
+        </field>
+        <return>
+          <name>iduser</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence>user_iduser_seq</sequence>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>5000</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>579</xloc>
+      <yloc>129</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

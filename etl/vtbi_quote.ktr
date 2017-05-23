@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_quote</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>getCreatedOn</from><to>getValidDate</to><enabled>Y</enabled> </hop>  <hop> <from>CalcGroupTax</from><to>delGroupTax Percentage</to><enabled>Y</enabled> </hop>  <hop> <from>Tax Type</from><to>getIndividualTaxTotal</to><enabled>Y</enabled> </hop>  <hop> <from>Tax Type</from><to>getTaxGroup</to><enabled>Y</enabled> </hop>  <hop> <from>UnoCien</from><to>CalcGroupTax</to><enabled>Y</enabled> </hop>  <hop> <from>getTaxGroup</from><to>UnoCien</to><enabled>Y</enabled> </hop>  <hop> <from>getBIContact</from><to>getBIAccount</to><enabled>Y</enabled> </hop>  <hop> <from>getbiPotential</from><to>getBIContact</to><enabled>Y</enabled> </hop>  <hop> <from>getbiOwner</from><to>getbiPotential</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCreator</from><to>getbiOwner</to><enabled>Y</enabled> </hop>  <hop> <from>delGroupTax Percentage</from><to>getbiCreator</to><enabled>Y</enabled> </hop>  <hop> <from>getIndividualTaxTotal</from><to>getbiCreator</to><enabled>Y</enabled> </hop>  <hop> <from>getBIAccount</from><to>delFields</to><enabled>Y</enabled> </hop>  <hop> <from>getValidDate</from><to>vtigerbi</to><enabled>Y</enabled> </hop>  <hop> <from>vtbi_quote</from><to>Tax Type</to><enabled>Y</enabled> </hop>  <hop> <from>delFields</from><to>toDate</to><enabled>Y</enabled> </hop>  <hop> <from>toDate</from><to>getCreatedOn</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>CalcGroupTax</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>Porcentaje</field_name>
+<calc_type>DIVIDE</calc_type>
+<field_a>grouptax</field_a>
+<field_b>cien</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>UnoMasPorcentaje</field_name>
+<calc_type>ADD</calc_type>
+<field_a>Porcentaje</field_a>
+<field_b>uno</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>sustraendo</field_name>
+<calc_type>DIVIDE</calc_type>
+<field_a>total</field_a>
+<field_b>UnoMasPorcentaje</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>Y</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>taxestotal</field_name>
+<calc_type>SUBTRACT</calc_type>
+<field_a>total</field_a>
+<field_b>sustraendo</field_b>
+<field_c/>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>429</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Tax Type</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>N</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>getIndividualTaxTotal</send_true_to>
+<send_false_to>getTaxGroup</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>taxtype</leftvalue>
+ <function>=</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>individual</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>168</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>UnoCien</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>uno</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>1</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>cien</name>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>100</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>342</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>potentialid</name>
+      </remove>      <remove>        <name>contactid</name>
+      </remove>      <remove>        <name>accountid</name>
+      </remove>      <remove>        <name>terms_conditions</name>
+      </remove>      <remove>        <name>smcreatorid</name>
+      </remove>      <remove>        <name>smownerid</name>
+      </remove>      <remove>        <name>modifiedby</name>
+      </remove>      <remove>        <name>setype</name>
+      </remove>      <remove>        <name>description</name>
+      </remove>      <remove>        <name>modifiedtime</name>
+      </remove>      <remove>        <name>viewedtime</name>
+      </remove>      <remove>        <name>presence</name>
+      </remove>      <remove>        <name>deleted</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>81</xloc>
+      <yloc>374</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delGroupTax Percentage</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>grouptax</name>
+      </remove>      <remove>        <name>cien</name>
+      </remove>      <remove>        <name>uno</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>430</xloc>
+      <yloc>155</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getBIAccount</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>account</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>accountid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idaccount</name>
+          <rename>biaccountid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>81</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getBIContact</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>contact</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>contactid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idcontact</name>
+          <rename>bicontactid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>169</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCreatedOn</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>createddate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>createdon</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>253</xloc>
+      <yloc>374</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getIndividualTaxTotal</name>
+    <type>DBProc</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <procedure>getTotalIndividualTax</procedure>
+    <lookup>
+      <arg>
+        <name>quoteid</name>
+        <direction>IN</direction>
+        <type>Integer</type>
+      </arg>
+    </lookup>
+    <result>
+      <name>taxestotal</name>
+      <type>Number</type>
+    </result>
+    <auto_commit>Y</auto_commit>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>293</xloc>
+      <yloc>159</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getTaxGroup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>productline</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>quoteid</name>
+        <field>id</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>tax1</name>
+        <rename>grouptax</rename>
+        <default>0</default>
+        <type>Number</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>255</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getValidDate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>vdate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>validtill</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>339</xloc>
+      <yloc>374</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCreator</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smcreatorid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>bicreatorid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>430</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiOwner</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smownerid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>biownerid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>343</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiPotential</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>potential</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>potentialid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>idpotential</name>
+          <rename>bipotentialid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>256</xloc>
+      <yloc>265</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>toDate</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>createdtime</name>
+        <rename>createddate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>validtill</name>
+        <rename>vdate</rename>
+        <type>-</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>167</xloc>
+      <yloc>374</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtbi_quote</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT *
+FROM vtiger_quotes
+INNER JOIN vtiger_crmentity on crmid=quoteid
+INNER JOIN vtiger_quotesbillads on quotebilladdressid=quoteid
+INNER JOIN vtiger_quotesshipads on quoteshipaddressid=quoteid
+WHERE deleted=0</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>81</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtigerbi</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>quote</table>
+      <connection>vtigerbi</connection>
+      <commit>1000</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>crmid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>subject</name>
+          <lookup>subject</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>quotestage</name>
+          <lookup>quotestage</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>subtotal</name>
+          <lookup>subtotal</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>carrier</name>
+          <lookup>carrier</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>shipping</name>
+          <lookup>shipping</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>inventorymanager</name>
+          <lookup>inventorymanager</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>type</name>
+          <lookup>type</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>adjustment</name>
+          <lookup>adjustment</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>total</name>
+          <lookup>total</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>taxtype</name>
+          <lookup>taxtype</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>discount_percent</name>
+          <lookup>discount_percent</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>discount_amount</name>
+          <lookup>discount_amount</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>s_h_amount</name>
+          <lookup>shipping_amount</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_city</name>
+          <lookup>bill_city</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_code</name>
+          <lookup>bill_code</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_country</name>
+          <lookup>bill_country</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_state</name>
+          <lookup>bill_state</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_street</name>
+          <lookup>bill_street</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bill_pobox</name>
+          <lookup>bill_pobox</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_city</name>
+          <lookup>ship_city</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_code</name>
+          <lookup>ship_code</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_country</name>
+          <lookup>ship_country</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_state</name>
+          <lookup>ship_state</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_street</name>
+          <lookup>ship_street</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ship_pobox</name>
+          <lookup>ship_pobox</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>biaccountid</name>
+          <lookup>accountid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bicontactid</name>
+          <lookup>contactid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>bipotentialid</name>
+          <lookup>potentialid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>biownerid</name>
+          <lookup>ownerid</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>bicreatorid</name>
+          <lookup>creatorid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>validtill</name>
+          <lookup>validtill</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>taxestotal</name>
+          <lookup>tax_amount</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>quote_no</name>
+          <lookup>quoteno</lookup>
+          <update>Punch through</update>
+        </field>
+        <return>
+          <name>idquote</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence>quote_idquote_seq</sequence>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>-1</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>425</xloc>
+      <yloc>374</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

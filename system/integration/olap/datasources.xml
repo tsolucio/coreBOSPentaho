@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSources>
+  <DataSource>
+    <DataSourceName>Provider=Mondrian;DataSource=Pentaho</DataSourceName>
+    <DataSourceDescription>Pentaho BI Platform Datasources</DataSourceDescription>
+    <URL>http://localhost:8080/pentaho/Xmla?userid=joe&amp;password=password</URL>
+    <DataSourceInfo>Provider=mondrian</DataSourceInfo>
+    <ProviderName>PentahoXMLA</ProviderName>
+    <ProviderType>MDP</ProviderType>
+    <AuthenticationMode>Unauthenticated</AuthenticationMode>
+    <Catalogs>
+        <Catalog name="Invoice">
+            <DataSourceInfo>Provider=mondrian;DataSource=vtigerbi</DataSourceInfo>
+	    <Definition>solution:vtigerbi/analysis/biinvoice.mondrian.xml</Definition>
+	</Catalog>
+        <Catalog name="Marketing">
+            <DataSourceInfo>Provider=mondrian;DataSource=vtigerbi</DataSourceInfo>
+	    <Definition>solution:vtigerbi/analysis/bimkt.mondrian.xml</Definition>
+	</Catalog>
+        <Catalog name="Oportunity">
+            <DataSourceInfo>Provider=mondrian;DataSource=vtigerbi</DataSourceInfo>
+	    <Definition>solution:vtigerbi/analysis/bicomer.mondrian.xml</Definition>
+	</Catalog>
+        <Catalog name="Prices">
+            <DataSourceInfo>Provider=mondrian;DataSource=vtigerbi</DataSourceInfo>
+	    <Definition>solution:vtigerbi/analysis/biprice.mondrian.xml</Definition>
+	</Catalog>
+        <Catalog name="Support">
+            <DataSourceInfo>Provider=mondrian;DataSource=vtigerbi</DataSourceInfo>
+	    <Definition>solution:vtigerbi/analysis/bisupport.mondrian.xml</Definition>
+	</Catalog>
+    </Catalogs>
+  </DataSource>
+</DataSources>

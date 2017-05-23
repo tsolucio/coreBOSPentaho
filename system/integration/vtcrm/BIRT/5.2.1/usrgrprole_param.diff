@@ -1,0 +1,13 @@
+Index: modules/Reports/Reports.php
+===================================================================
+--- modules/Reports/Reports.php	(revisión: 3381)
++++ modules/Reports/Reports.php	(copia de trabajo)
+@@ -460,7 +460,7 @@
+ 				// increment vtiger_selectquery_seq
+ 				// insert into vtiger_report and vtiger_reportmodules
+ 				$report_details ['reporttype'] = $report["reporttype"];
+-				$report_details ['biurl'] = $report["biurl"];
++				$report_details ['biurl'] = $report["biurl"].'&usrid='.$current_user->id.'&role='.$current_user_parent_role_seq.(sizeof($current_user_groups) > 0 ? '&grpid='.implode(",", $current_user_groups) : '');
+ 				if($is_admin==true || in_array($report["owner"],$subordinate_users) || $report["owner"]==$current_user->id)
+ 					$report_details ['editable'] = 'true';
+ 				else

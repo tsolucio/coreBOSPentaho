@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformation>
+  <info>
+    <name>vtbi_lead</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_status>0</trans_status>
+    <directory>&#47;</directory>
+    <parameters>
+    </parameters>
+    <log>
+      <read/>
+      <write/>
+      <input/>
+      <output/>
+      <update/>
+      <rejected/>
+      <connection/>
+      <table/>
+      <step_performance_table/>
+      <use_batchid>Y</use_batchid>
+      <use_logfield>N</use_logfield>
+      <size_limit_lines/>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <modified_user>-</modified_user>
+  <modified_date>2008&#47;10&#47;18 19:57:53.528</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>vtigerbi</name>
+    <server>localhost</server>
+    <type>POSTGRESQL</type>
+    <access>JNDI</access>
+    <database>vtigerbi</database>
+    <port>5432</port>
+    <username>postgres</username>
+    <password>Encrypted </password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>5432</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>vtigercrm</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>JNDI</access>
+    <database>vtigercrm</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e4a608ed64cdd19ef7</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>Y</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>getCreatedOn</from><to>vtigerbi</to><enabled>Y</enabled> </hop>  <hop> <from>toDate</from><to>getmdate</to><enabled>Y</enabled> </hop>  <hop> <from>getmdate</from><to>getnsdate</to><enabled>Y</enabled> </hop>  <hop> <from>getnsdate</from><to>gettdate</to><enabled>Y</enabled> </hop>  <hop> <from>gettdate</from><to>getCreatedOn</to><enabled>Y</enabled> </hop>  <hop> <from>delFields</from><to>chgFields</to><enabled>Y</enabled> </hop>  <hop> <from>chgFields</from><to>getFullName</to><enabled>Y</enabled> </hop>  <hop> <from>getFullName</from><to>toDate</to><enabled>Y</enabled> </hop>  <hop> <from>getbiOwner</from><to>getbiCreator</to><enabled>Y</enabled> </hop>  <hop> <from>getbiCreator</from><to>delFields</to><enabled>Y</enabled> </hop>  <hop> <from>vtLead</from><to>getbiOwner</to><enabled>Y</enabled> </hop>  </order>
+  <step>
+    <name>chgFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>biownerid</name>
+        <rename>ownerid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>bicreatorid</name>
+        <rename>creatorid</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>delFields</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <remove>        <name>smcreatorid</name>
+      </remove>      <remove>        <name>smownerid</name>
+      </remove>      <remove>        <name>modifiedby</name>
+      </remove>      <remove>        <name>setype</name>
+      </remove>      <remove>        <name>description</name>
+      </remove>      <remove>        <name>modifiedtime</name>
+      </remove>      <remove>        <name>viewedtime</name>
+      </remove>      <remove>        <name>status</name>
+      </remove>      <remove>        <name>version</name>
+      </remove>      <remove>        <name>presence</name>
+      </remove>      <remove>        <name>deleted</name>
+      </remove>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>279</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getCreatedOn</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>createddate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>createdon</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>567</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getFullName</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>Y</compatible>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#47;&#47;Script here
+
+var fullname=firstname.getString() + &apos; &apos; + lastname.getString();</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>fullname</name>
+        <rename>fullname</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>284</xloc>
+      <yloc>164</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiCreator</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smcreatorid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>bicreatorid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>194</xloc>
+      <yloc>223</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getbiOwner</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>user</table>
+      <connection>vtigerbi</connection>
+      <commit>100</commit>
+      <update>N</update>
+      <fields>
+        <key>
+          <name>smownerid</name>
+          <lookup>userid</lookup>
+        </key>
+        <date>
+          <name>createdtime</name>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <return>
+          <name>iduser</name>
+          <rename>biownerid</rename>
+          <creation_method>tablemax</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence/>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>500</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>97</xloc>
+      <yloc>223</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getmdate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>mdate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>maildate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>285</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>getnsdate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>nsdate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>nextstepdate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>379</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>gettdate</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigerbi</connection>
+    <cache>Y</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>40</cache_size>
+    <lookup>
+      <schema/>
+      <table>daytime</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>tdate</name>
+        <field>fecha</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>iddaytime</name>
+        <rename>transferdate</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>473</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>toDate</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>createdtime</name>
+        <rename>createddate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>maildate</name>
+        <rename>mdate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>nextstepdate</name>
+        <rename>nsdate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>transferdate</name>
+        <rename>tdate</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy&#47;MM&#47;dd</conversion_mask>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>191</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtLead</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>vtigercrm</connection>
+    <sql>SELECT *
+FROM vtiger_leaddetails
+INNER JOIN vtiger_crmentity on crmid=leadid
+INNER JOIN vtiger_leadsubdetails on crmid=leadsubscriptionid
+INNER JOIN vtiger_leadaddress on crmid=leadaddressid
+WHERE deleted=0</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>97</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>vtigerbi</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <schema/>
+      <table>lead</table>
+      <connection>vtigerbi</connection>
+      <commit>1000</commit>
+      <update>Y</update>
+      <fields>
+        <key>
+          <name>crmid</name>
+          <lookup>crmid</lookup>
+        </key>
+        <date>
+          <name/>
+          <from>date_from</from>
+          <to>date_to</to>
+        </date>
+        <field>
+          <name>email</name>
+          <lookup>email</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>interest</name>
+          <lookup>interest</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>firstname</name>
+          <lookup>firstname</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>salutation</name>
+          <lookup>salutation</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>lastname</name>
+          <lookup>lastname</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>company</name>
+          <lookup>company</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>annualrevenue</name>
+          <lookup>annualrevenue</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>industry</name>
+          <lookup>industry</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>campaign</name>
+          <lookup>campaign</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>rating</name>
+          <lookup>rating</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>leadstatus</name>
+          <lookup>leadstatus</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>leadsource</name>
+          <lookup>leadsource</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>converted</name>
+          <lookup>converted</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>designation</name>
+          <lookup>designation</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>licencekeystatus</name>
+          <lookup>licencekeystatus</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>space</name>
+          <lookup>space</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>priority</name>
+          <lookup>priority</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>demorequest</name>
+          <lookup>demorequest</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>partnercontact</name>
+          <lookup>partnercontact</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>productversion</name>
+          <lookup>productversion</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>product</name>
+          <lookup>product</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>maildate</name>
+          <lookup>maildate</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>nextstepdate</name>
+          <lookup>nextstepdate</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>fundingsituation</name>
+          <lookup>fundingsituation</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>purpose</name>
+          <lookup>purpose</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>evaluationstatus</name>
+          <lookup>evaluationstatus</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>transferdate</name>
+          <lookup>transferdate</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>revenuetype</name>
+          <lookup>revenuetype</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>noofemployees</name>
+          <lookup>noofemployees</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>yahooid</name>
+          <lookup>yahooid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>assignleadchk</name>
+          <lookup>assignleadchk</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>creatorid</name>
+          <lookup>creatorid</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>ownerid</name>
+          <lookup>ownerid</lookup>
+          <update>Insertar</update>
+        </field>
+        <field>
+          <name>website</name>
+          <lookup>website</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>callornot</name>
+          <lookup>callornot</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>readornot</name>
+          <lookup>readornot</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>empct</name>
+          <lookup>empct</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>city</name>
+          <lookup>city</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>code</name>
+          <lookup>code</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>state</name>
+          <lookup>state</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>pobox</name>
+          <lookup>pobox</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>country</name>
+          <lookup>country</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>phone</name>
+          <lookup>phone</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>mobile</name>
+          <lookup>mobile</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>fax</name>
+          <lookup>fax</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>lane</name>
+          <lookup>lane</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>leadaddresstype</name>
+          <lookup>leadaddresstype</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>createdon</name>
+          <lookup>createdon</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>fullname</name>
+          <lookup>fullname</lookup>
+          <update>Punch through</update>
+        </field>
+        <field>
+          <name>lead_no</name>
+          <lookup>leadno</lookup>
+          <update>Punch through</update>
+        </field>
+        <return>
+          <name>idlead</name>
+          <rename/>
+          <creation_method>sequence</creation_method>
+          <use_autoinc>N</use_autoinc>
+          <version>version</version>
+        </return>
+      </fields>
+      <sequence>lead_idlead_seq</sequence>
+      <min_year>1900</min_year>
+      <max_year>2199</max_year>
+      <cache_size>5000</cache_size>
+      <preload_cache>N</preload_cache>
+      <use_start_date_alternative>N</use_start_date_alternative>
+      <start_date_alternative>none</start_date_alternative>
+      <start_date_field_name/>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>661</xloc>
+      <yloc>97</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+</transformation>

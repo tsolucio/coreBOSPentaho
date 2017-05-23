@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>PotentialSQLParam</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author>Joe Bordes</author>  
+    <description>SQL query for Potentials with Parameters</description>  
+    <help/>  
+    <result-type>result</result-type>  
+    <icon/> 
+  </documentation>
+
+  <inputs> 
+    <dateend type="string"> 
+      <sources> 
+        <request>dateend</request> 
+      </sources>  
+      <default-value><![CDATA[2009-12-31]]></default-value> 
+    </dateend>  
+    <dateini type="string"> 
+      <sources> 
+        <request>dateini</request> 
+      </sources>  
+      <default-value><![CDATA[2006-01-01]]></default-value> 
+    </dateini>  
+    <outputType type="string">
+      <sources>
+        <request>type</request>
+      </sources>
+      <default-value><![CDATA[text/html]]></default-value>
+    </outputType>
+    <outputTypeList type="property-map-list">
+      <sources>
+        <runtime>outputTypeList</runtime>
+      </sources>
+      <default-value type="property-map-list">
+        <property-map>
+          <entry key="report-output-desc">PDF</entry>
+          <entry key="report-output-type-id">application/pdf</entry>
+        </property-map>
+        <property-map>
+          <entry key="report-output-desc">Excel</entry>
+          <entry key="report-output-type-id">application/vnd.ms-excel</entry>
+        </property-map>
+        <property-map>
+          <entry key="report-output-desc">Web Page</entry>
+          <entry key="report-output-type-id">text/html</entry>
+        </property-map>
+      </default-value>
+    </outputTypeList>
+  </inputs>
+
+  <outputs> 
+    <query_result type="result-set">
+      <destinations>
+        <response>query_result</response>
+      </destinations>
+    </query_result>
+  </outputs>
+
+  <resources/>
+  
+  <actions> 
+    <action-definition> 
+      <component-name>SecureFilterComponent</component-name>
+      <action-type>Prompt Dates</action-type>
+      <action-inputs> 
+        <dateini type="date"/>  
+        <dateend type="string"/>  
+        <outputType type="string"/>
+        <outputTypeList type="property-map-list"/>
+      </action-inputs>
+      <component-definition> 
+        <selections> 
+          <dateini filter="none"> 
+            <title>Start Date</title> 
+          </dateini>  
+          <dateend filter="none"> 
+            <title>End Date</title> 
+          </dateend>  
+          <outputType style="radio">
+            <title>Output Format</title>
+            <filter value-col-name="report-output-type-id" display-col-name="report-output-desc">outputTypeList</filter>
+          </outputType>
+        </selections> 
+      </component-definition> 
+    </action-definition>
+  
+    <action-definition> 
+      <component-name>SQLLookupRule</component-name>
+      <action-type>PotentialSQL</action-type>
+      <action-inputs> 
+        <dateini type="string"/>  
+        <dateend type="string"/> 
+      </action-inputs>
+      <action-outputs> 
+        <query-result type="result-set" mapping="query_result"/> 
+      </action-outputs>
+      <component-definition> 
+        <jndi><![CDATA[vtigercrm]]></jndi>  
+        <query><![CDATA[SELECT
+     vtiger_potential.potentialname as 'Potential Name',
+     vtiger_potential.leadsource as 'Source',
+     vtiger_potential.sales_stage 'Stage',
+     vtiger_potential.potentialtype as 'Type',
+     vtiger_crmentity.createdtime as 'Created on',
+     vtiger_potential.closingdate as 'Closed on',
+     CONCAT(`vtiger_users`.`first_name`,`vtiger_users`.`last_name`) as 'User'
+FROM
+     `vtiger_crmentity` INNER JOIN `vtiger_potential` ON `vtiger_crmentity`.`crmid` = `vtiger_potential`.`potentialid`
+     INNER JOIN `vtiger_users` ON `vtiger_crmentity`.`smownerid` = `vtiger_users`.`id`
+WHERE `vtiger_crmentity`.`createdtime` between '{dateini}' and '{dateend}'
+ORDER BY `vtiger_potential`.`leadsource`]]></query>  
+        <live><![CDATA[true]]></live> 
+      </component-definition> 
+    </action-definition>
+ 
+  </actions> 
+</action-sequence>
